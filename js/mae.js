@@ -38,7 +38,7 @@
     checkoutUrl: null,
     // Google Apps Script web app link (see order-email/SETUP.md). Each pre-order is emailed to
     // wearmae.co@gmail.com and logged in the "MAE. Pre-orders" sheet. Leave null to skip.
-    orderInboxUrl: null,
+    orderInboxUrl: "https://script.google.com/macros/s/AKfycbxRxBQHsYCV5VlhwwLq4JTzO1_ML6yQkN6TsjHN0epa0egK56tsBDmlZXmjrR5CM5vOXg/exec",
   };
 
   const PRODUCTS = {
