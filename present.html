@@ -65,7 +65,7 @@
 </head>
 <body>
 <div id="stage">
-  <!-- Press 1 and 11 -->
+  <!-- Press 1 and 14 -->
   <section class="scr" id="s-cover" aria-label="Cover">
     <div class="cv">
       <img src="assets/img/court-25.jpg" alt="">
@@ -93,12 +93,19 @@
   </section>
 
   <!-- Press 5 -->
-  <section class="scr" id="s-sports" aria-label="Every sport"><iframe data-src="index.html" data-w="1440" title="Every sport" tabindex="-1"></iframe></section>
+  <section class="scr" id="s-shop" aria-label="Shop"><iframe data-src="shop.html" data-w="1920" title="Shop" tabindex="-1"></iframe></section>
 
   <!-- Press 6 to 9 -->
   <section class="scr" id="s-inside" aria-label="Inside the Short"><iframe data-src="court-field.html" data-w="1600" title="Inside the Short" tabindex="-1"></iframe></section>
 
-  <!-- Press 10 -->
+  <!-- Press 10 and 11: the other outfit -->
+  <section class="scr" id="s-rl" aria-label="Run and Lift"><iframe data-src="run-lift.html" data-w="1920" title="Run and Lift" tabindex="-1"></iframe></section>
+  <section class="scr" id="s-rlin" aria-label="Inside the Run and Lift short"><iframe data-src="run-lift.html#inside" data-w="1600" title="Inside the Run and Lift short" tabindex="-1"></iframe></section>
+
+  <!-- Press 12 -->
+  <section class="scr" id="s-checkout" aria-label="Checkout"><iframe data-src="checkout.html" data-w="1600" title="Checkout" tabindex="-1"></iframe></section>
+
+  <!-- Press 13 -->
   <section class="scr" id="s-club" aria-label="The card and The 300">
     <div class="cl">
       <div class="cl-card"><span class="lg">MAE.</span><span class="t">Card design coming</span></div>
@@ -125,11 +132,14 @@
     { s: "s-why", top: 0 },
     { s: "s-stats", two: false },
     { s: "s-stats", two: true },
-    { s: "s-sports", sel: ".sports", pad: -40 },
+    { s: "s-shop", top: 0 },
     { s: "s-inside", sel: ".its-main", pad: 28, layer: 1 },
     { s: "s-inside", sel: ".its-main", pad: 28, layer: 4 },
     { s: "s-inside", sel: ".its-main", pad: 28, layer: 2 },
     { s: "s-inside", sel: ".its-main", pad: 28, layer: 3 },
+    { s: "s-rl", sel: "main > .ad-band + .section", pad: -20 },
+    { s: "s-rlin", sel: ".its-main", pad: 28, open: true },
+    { s: "s-checkout", top: 0 },
     { s: "s-club" },
     { s: "s-cover" },
   ];
@@ -153,7 +163,8 @@
     // Our Why: only the opening section ("It started on the court.")
     // Inside the Short: just the exploded short and its layer card; the site header stays out of the way
     if (f.dataset.src === "court-field.html") { const h = d.createElement("style"); h.textContent = "#inside .its-head{display:none!important} header{visibility:hidden!important}"; d.head.appendChild(h); }
-    if (f.dataset.src === "index.html") { const h = d.createElement("style"); h.textContent = "header{visibility:hidden!important} .sports .tile{aspect-ratio:16/9!important} .sports .tiles{row-gap:20px!important}"; d.head.appendChild(h); }
+    if (f.dataset.src === "run-lift.html") { const h = d.createElement("style"); h.textContent = "header{visibility:hidden!important}"; d.head.appendChild(h); }
+    if (f.dataset.src.startsWith("run-lift.html#")) { const h = d.createElement("style"); h.textContent = "#inside .its-head{display:none!important} header{visibility:hidden!important}"; d.head.appendChild(h); }
     if (f.dataset.src === "our-why.html") { const h = d.createElement("style"); h.textContent = "main > *:not(:first-child), footer { visibility: hidden !important; }"; d.head.appendChild(h); }
   }
   function place(f, step) {
@@ -163,6 +174,10 @@
       const el = d.querySelector(step.sel);
       if (el) { const head = d.querySelector("header"); const off = head && getComputedStyle(head).visibility !== "hidden" ? head.getBoundingClientRect().height : 0; w.scrollTo(0, el.getBoundingClientRect().top + w.scrollY - off - (step.pad ?? 0)); }
     } else w.scrollTo(0, step.top || 0);
+    if (step.open && !step.layer) {
+      const stg = d.getElementById("its-stage");
+      if (stg && !stg.classList.contains("open")) d.getElementById("its-toggle")?.click();
+    }
     if (step.layer) {
       const stg = d.getElementById("its-stage");
       if (stg && !stg.classList.contains("open")) d.getElementById("its-toggle")?.click();
@@ -170,10 +185,19 @@
       if (mk) mk.click();
     }
   }
+  const SAMPLE_BAG = [{ id: "athlete-short", size: "M", qty: 1 }, { id: "athlete-tee", size: "M", qty: 1 }];
   document.querySelectorAll(".scr iframe").forEach((f) => {
+
     f.addEventListener("load", () => { prep(f); [0, 200, 700, 1500].forEach((ms) => setTimeout(() => { const cur = STEPS[i]; if (f.parentElement.id === cur.s) place(f, cur); }, ms)); });
-    f.src = f.dataset.src;
+    if (f.dataset.src !== "checkout.html") f.src = f.dataset.src;
   });
+  // Checkout loads last, with a sample order that only it sees; the presenter's real bag is put back right after
+  addEventListener("load", () => setTimeout(() => {
+    const f = document.querySelector('#s-checkout iframe');
+    let real = null; try { real = localStorage.getItem("mae.bag"); localStorage.setItem("mae.bag", JSON.stringify(SAMPLE_BAG)); } catch (e) {}
+    f.addEventListener("load", () => { try { if (real === null) localStorage.removeItem("mae.bag"); else localStorage.setItem("mae.bag", real); } catch (e) {} }, { once: true });
+    f.src = f.dataset.src;
+  }, 1200));
 
   function show(n) {
     i = Math.max(0, Math.min(STEPS.length - 1, n));
