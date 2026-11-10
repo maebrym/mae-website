@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MAE. Pitch</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="css/fonts.css?v=1">
+<link rel="stylesheet" href="css/mae.css?v=55">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<style>
+  :root { --snap: 250ms cubic-bezier(.2, .7, .2, 1); }
+  html, body { margin: 0; height: 100%; background: #000; overflow: hidden; cursor: none; }
+  body.cursor { cursor: default; }
+  /* 16:9 stage, as large as the screen allows */
+  #stage { position: fixed; left: 50%; top: 50%; width: min(100vw, 177.78vh); aspect-ratio: 16 / 9; transform: translate(-50%, -50%); overflow: hidden; background: var(--paper); container-type: inline-size; }
+  .scr { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity var(--snap), visibility 0s linear 250ms; }
+  .scr.on { opacity: 1; visibility: visible; transition: opacity var(--snap), visibility 0s; z-index: 2; }
+  .scr iframe { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; border: 0; transform-origin: 0 0; pointer-events: none; background: var(--paper); }
+  #black { position: fixed; inset: 0; background: #000; z-index: 50; opacity: 0; pointer-events: none; transition: opacity var(--snap); }
+  #black.on { opacity: 1; }
+  #count { position: fixed; right: 12px; bottom: 10px; z-index: 60; font: 700 12px/1 "Barlow Condensed", sans-serif; letter-spacing: .14em; color: rgba(255,255,255,.55); opacity: 0; transition: opacity .3s; }
+  body.cursor #count { opacity: 1; }
+
+  /* Cover (Press 1 and 11): the home cover, held still */
+  .cv { position: absolute; inset: 0; color: #fff; }
+  .cv img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
+  .cv::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,12,20,.55) 0%, rgba(10,12,20,.15) 38%, rgba(10,12,20,.25) 62%, rgba(10,12,20,.7) 100%); }
+  .cv-in { position: absolute; inset: 3.2cqw 4cqw; z-index: 1; display: flex; flex-direction: column; }
+  .cv-date { display: flex; justify-content: space-between; border-top: .18cqw solid var(--gold); border-bottom: .18cqw solid var(--gold); padding: .7cqw 0; font: 700 1.25cqw/1 var(--f-cover); letter-spacing: .26em; text-transform: uppercase; }
+  .cv-mid { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .cv-mast { margin: 0; font-family: "Shrikhand", cursive; font-weight: 400; font-size: 17cqw; line-height: .9; color: var(--gold); text-shadow: 0 .35cqw 0 rgba(0,0,0,.25); letter-spacing: -.01em; }
+  .cv-motto { margin: 1.4cqw 0 0; font: 700 1.9cqw/1 var(--f-cover); letter-spacing: .3em; text-transform: uppercase; }
+  .cv-line { align-self: flex-start; font: 700 2.4cqw/1 var(--f-cover); letter-spacing: .14em; text-transform: uppercase; border-left: .3cqw solid var(--gold); padding-left: 1.2cqw; }
+
+  /* Stats (Press 3 and 4): plain white, court red */
+  #s-stats { background: #fff; }
+  .st { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 0 5cqw 4cqw; }
+  .st-row { transition: font-size var(--snap), opacity var(--snap), max-height var(--snap), margin var(--snap); overflow: hidden; }
+  .st-num { margin: 0; font-family: "Roboto Serif", Georgia, serif; font-weight: 800; font-variation-settings: "wdth" 50, "opsz" 144; font-stretch: 50%; color: #D9301F; font-size: 1em; line-height: .86; letter-spacing: -.01em; white-space: nowrap; }
+  .st-lab { margin: .9cqw 0 0; font: 700 2.2cqw/1.05 "Barlow Condensed", sans-serif; letter-spacing: .1em; color: #D9301F; text-transform: uppercase; }
+  .st-r1 { font-size: 21.5cqw; }
+  .st-r2 { font-size: 21.5cqw; max-height: 0; opacity: 0; margin-top: 0; }
+  .st.two .st-r1, .st.two .st-r2 { font-size: 12.5cqw; }
+  .st.two .st-r2 { max-height: 40cqw; opacity: 1; margin-top: 3cqw; }
+  .st-src { position: absolute; left: 5cqw; bottom: 2.2cqw; margin: 0; font: italic 400 1.05cqw/1 var(--f-band); color: #8a8a8a; }
+
+  /* Card + community (Press 10) */
+  #s-club { background: var(--paper); }
+  .cl { position: absolute; inset: 3.4cqw 4cqw; display: grid; grid-template-columns: 27cqw 1fr; gap: 3.4cqw; }
+  .cl-card { align-self: center; aspect-ratio: 2.5 / 3.5; border-radius: 1.6cqw; background: var(--cream); border: .35cqw solid var(--ink); box-shadow: .8cqw .8cqw 0 var(--red); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 1.2cqw; }
+  .cl-card .lg { font-family: "Shrikhand", cursive; font-size: 4.2cqw; color: var(--red); line-height: 1; }
+  .cl-card .t { font: 700 1.7cqw/1.1 var(--f-cover); letter-spacing: .2em; text-transform: uppercase; color: var(--ink); border-top: .2cqw dashed var(--ink); border-bottom: .2cqw dashed var(--ink); padding: .8cqw 1.2cqw; }
+  .cl-right { display: flex; flex-direction: column; min-height: 0; }
+  .cl-head { margin: 0 0 1.6cqw; font: 700 4.6cqw/.95 var(--f-head); color: var(--red); letter-spacing: -.01em; }
+  .cl-head small { display: block; margin-bottom: .6cqw; font: 700 1.2cqw/1 var(--f-cover); letter-spacing: .26em; color: var(--ink); text-transform: uppercase; }
+  .cl-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1.4cqw; }
+  .cl-t { position: relative; overflow: hidden; border: .25cqw solid var(--ink); background: var(--ink); }
+  .cl-t img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .cl-t span { position: absolute; left: 0; right: 0; bottom: 0; padding: 2.4cqw 1.3cqw 1.1cqw; background: linear-gradient(0deg, rgba(20,16,12,.8), transparent); color: #fff; font: 700 1.9cqw/1 var(--f-cover); letter-spacing: .12em; text-transform: uppercase; }
+  .cl-give { background: var(--red); display: flex; align-items: center; justify-content: center; text-align: center; padding: 1.6cqw; }
+  .cl-give p { margin: 0; color: var(--cream); font: 700 3.2cqw/1 var(--f-head); }
+  .cl-give p small { display: block; margin-top: 1cqw; font: 700 1.2cqw/1 var(--f-cover); letter-spacing: .24em; text-transform: uppercase; color: var(--gold); }
+</style>
+</head>
+<body>
+<div id="stage">
+  <!-- Press 1 and 11 -->
+  <section class="scr" id="s-cover" aria-label="Cover">
+    <div class="cv">
+      <img src="assets/img/court-25.jpg" alt="">
+      <div class="cv-in">
+        <div class="cv-date"><span>November, 2026 · Drop 01</span><span>Austin, Texas</span></div>
+        <div class="cv-mid">
+          <h1 class="cv-mast">MAE.</h1>
+          <p class="cv-motto">Where modesty meets the moment</p>
+        </div>
+        <div class="cv-line">Examining your shorts</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Press 2 -->
+  <section class="scr" id="s-why" aria-label="Our Why"><iframe data-src="our-why.html" data-w="1440" title="Our Why" tabindex="-1"></iframe></section>
+
+  <!-- Press 3 and 4 -->
+  <section class="scr" id="s-stats" aria-label="Stats">
+    <div class="st" id="st">
+      <div class="st-row st-r1"><p class="st-num">46 BILLION</p><p class="st-lab">Minutes of women's sports watched in 2025</p></div>
+      <div class="st-row st-r2"><p class="st-num">60%</p><p class="st-lab">Of those fans switched brands over a company's values</p></div>
+      <p class="st-src">Source: Nielsen, 2026</p>
+    </div>
+  </section>
+
+  <!-- Press 5 -->
+  <section class="scr" id="s-sports" aria-label="Every sport"><iframe data-src="index.html" data-w="1440" title="Every sport" tabindex="-1"></iframe></section>
+
+  <!-- Press 6 to 9 -->
+  <section class="scr" id="s-inside" aria-label="Inside the Short"><iframe data-src="court-field.html" data-w="1600" title="Inside the Short" tabindex="-1"></iframe></section>
+
+  <!-- Press 10 -->
+  <section class="scr" id="s-club" aria-label="The card and The 300">
+    <div class="cl">
+      <div class="cl-card"><span class="lg">MAE.</span><span class="t">Card design coming</span></div>
+      <div class="cl-right">
+        <h2 class="cl-head"><small>In every box</small>Join The 300.</h2>
+        <div class="cl-grid">
+          <div class="cl-t"><img src="assets/img/run-club.jpg" alt="" style="object-position:50% 60%"><span>The 300 run club</span></div>
+          <div class="cl-t"><img src="assets/img/pickup-court.jpg" alt="" style="object-position:50% 40%"><span>Pickup nights at the park</span></div>
+          <div class="cl-t"><img src="assets/img/fit-run-lift-stride.jpg" alt="" style="object-position:50% 45%"><span>All-women's 5K</span></div>
+          <div class="cl-t cl-give"><p>Part of every drop, given back.<small>Girls on the Run Austin</small></p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<div id="black"></div>
+<div id="count"></div>
+
+<script>
+(() => {
+  // One entry per clicker press. Inside the Short layers: 1 waistband, 4 hidden liner, 2 outer shell, 3 side tape.
+  const STEPS = [
+    { s: "s-cover" },
+    { s: "s-why", top: 0 },
+    { s: "s-stats", two: false },
+    { s: "s-stats", two: true },
+    { s: "s-sports", sel: ".sports", pad: -40 },
+    { s: "s-inside", sel: ".its-main", pad: 28, layer: 1 },
+    { s: "s-inside", sel: ".its-main", pad: 28, layer: 4 },
+    { s: "s-inside", sel: ".its-main", pad: 28, layer: 2 },
+    { s: "s-inside", sel: ".its-main", pad: 28, layer: 3 },
+    { s: "s-club" },
+    { s: "s-cover" },
+  ];
+  const stage = document.getElementById("stage"), black = document.getElementById("black"), count = document.getElementById("count");
+  let i = 0;
+
+  // Scale the 1920x1080 page frames to the stage
+  function fit() { document.querySelectorAll(".scr iframe").forEach((f) => { const w = +(f.dataset.w || 1920); f.style.width = w + "px"; f.style.height = Math.round(w * 9 / 16) + "px"; f.style.transform = `scale(${stage.clientWidth / w})`; }); }
+  addEventListener("resize", fit);
+
+  // Prepare each real page: no animations waiting on scroll, no scrollbars, keys go to the presenter
+  function prep(f) {
+    const d = f.contentDocument, w = f.contentWindow;
+    const st = d.createElement("style");
+    st.textContent = "html{scroll-behavior:auto!important;overflow:hidden!important}html::-webkit-scrollbar{display:none}.reveal{opacity:1!important;transform:none!important;transition:none!important}*{scroll-snap-type:none!important}";
+    d.head.appendChild(st);
+    d.querySelectorAll(".reveal").forEach((e) => e.classList.add("is-in"));
+    d.querySelectorAll("img[loading=lazy]").forEach((im) => (im.loading = "eager"));
+    d.querySelectorAll("video").forEach((v) => { v.pause(); v.removeAttribute("autoplay"); });
+    w.addEventListener("keydown", onKey, true);
+    // Our Why: only the opening section ("It started on the court.")
+    // Inside the Short: just the exploded short and its layer card; the site header stays out of the way
+    if (f.dataset.src === "court-field.html") { const h = d.createElement("style"); h.textContent = "#inside .its-head{display:none!important} header{visibility:hidden!important}"; d.head.appendChild(h); }
+    if (f.dataset.src === "index.html") { const h = d.createElement("style"); h.textContent = "header{visibility:hidden!important} .sports .tile{aspect-ratio:16/9!important} .sports .tiles{row-gap:20px!important}"; d.head.appendChild(h); }
+    if (f.dataset.src === "our-why.html") { const h = d.createElement("style"); h.textContent = "main > *:not(:first-child), footer { visibility: hidden !important; }"; d.head.appendChild(h); }
+  }
+  function place(f, step) {
+    const d = f.contentDocument, w = f.contentWindow;
+    if (!d || !d.body) return;
+    if (step.sel) {
+      const el = d.querySelector(step.sel);
+      if (el) { const head = d.querySelector("header"); const off = head && getComputedStyle(head).visibility !== "hidden" ? head.getBoundingClientRect().height : 0; w.scrollTo(0, el.getBoundingClientRect().top + w.scrollY - off - (step.pad ?? 0)); }
+    } else w.scrollTo(0, step.top || 0);
+    if (step.layer) {
+      const stg = d.getElementById("its-stage");
+      if (stg && !stg.classList.contains("open")) d.getElementById("its-toggle")?.click();
+      const mk = d.querySelector(`#its-stage .mk[data-l="${step.layer}"]`);
+      if (mk) mk.click();
+    }
+  }
+  document.querySelectorAll(".scr iframe").forEach((f) => {
+    f.addEventListener("load", () => { prep(f); [0, 200, 700, 1500].forEach((ms) => setTimeout(() => { const cur = STEPS[i]; if (f.parentElement.id === cur.s) place(f, cur); }, ms)); });
+    f.src = f.dataset.src;
+  });
+
+  function show(n) {
+    i = Math.max(0, Math.min(STEPS.length - 1, n));
+    const step = STEPS[i];
+    document.querySelectorAll(".scr").forEach((s) => s.classList.toggle("on", s.id === step.s));
+    if (step.s === "s-stats") document.getElementById("st").classList.toggle("two", !!step.two);
+    const f = document.querySelector(`#${step.s} iframe`);
+    if (f) place(f, step);
+    count.textContent = `${i + 1} / ${STEPS.length}`;
+    try { history.replaceState(null, "", "#" + (i + 1)); } catch (e) {}
+  }
+
+  function onKey(e) {
+    const k = e.key;
+    if (["ArrowRight", "ArrowDown", "PageDown", " ", "Enter"].includes(k)) { e.preventDefault(); e.stopPropagation(); if (black.classList.contains("on")) black.classList.remove("on"); else show(i + 1); }
+    else if (["ArrowLeft", "ArrowUp", "PageUp", "Backspace"].includes(k)) { e.preventDefault(); e.stopPropagation(); if (black.classList.contains("on")) black.classList.remove("on"); else show(i - 1); }
+    else if (k === "b" || k === "B" || k === "." ) { e.preventDefault(); black.classList.toggle("on"); }
+    else if (k === "Escape") { e.preventDefault(); location.href = "index.html"; }
+    else if (k === "Home") { e.preventDefault(); show(0); }
+  }
+  addEventListener("keydown", onKey, true);
+
+  // Mouse: show the cursor and step number briefly when the mouse moves
+  let t; addEventListener("mousemove", () => { document.body.classList.add("cursor"); clearTimeout(t); t = setTimeout(() => document.body.classList.remove("cursor"), 1500); });
+
+  fit();
+  const start = parseInt(location.hash.slice(1), 10);
+  show(start > 0 ? start - 1 : 0);
+
+  // Save the whole site for offline use
+  if ("serviceWorker" in navigator && location.protocol.startsWith("http")) navigator.serviceWorker.register("sw.js").catch(() => {});
+})();
+</script>
+</body>
+</html>
