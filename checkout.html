@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checkout · MAE.</title>
+<meta name="theme-color" content="#d9301f">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,500..900,0..100,0..1;1,9..144,500..900,0..100,0..1&family=Barlow+Condensed:wght@600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@400;500;600&family=Libre+Caslon+Condensed:ital,wght@0,700;1,700&family=Shrikhand&display=swap">
+<link rel="stylesheet" href="css/mae.css?v=55">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+</head>
+<body data-page="checkout">
+<a class="skip" href="#main">Skip to content</a>
+<header data-site-header></header>
+
+<main id="main" class="wrap section" data-checkout>
+  <div id="co-empty" class="empty" hidden>
+    <h1 class="headline" style="font-size:clamp(3rem,8vw,6rem)">Your bag is empty.</h1>
+    <p>Drop 01 is two lines, two shorts, two tops.</p>
+    <a class="btn" href="shop.html">Shop Drop 01</a>
+  </div>
+
+  <div id="co-main">
+    <h1 class="headline" style="font-size:clamp(3rem,8vw,6.4rem);margin-bottom:28px">Checkout.</h1>
+    <div class="checkout">
+      <form class="co-form" id="co-form" novalidate>
+        <div class="error-summary" id="error-summary" hidden></div>
+        <fieldset>
+          <legend>Contact</legend>
+          <div class="co-grid">
+            <div class="field full"><label for="f-name">Full name <span class="req" aria-hidden="true">*</span></label><input class="input" id="f-name" name="name" autocomplete="name" required aria-describedby="err-name"><p class="err" id="err-name"></p></div>
+            <div class="field full"><label for="f-email">Email <span class="req" aria-hidden="true">*</span></label><input class="input" id="f-email" name="email" type="email" autocomplete="email" required aria-describedby="err-email"><p class="err" id="err-email"></p></div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Ship to</legend>
+          <div class="co-grid">
+            <div class="field full"><label for="f-address">Street address <span class="req" aria-hidden="true">*</span></label><input class="input" id="f-address" name="address" autocomplete="street-address" required aria-describedby="err-address"><p class="err" id="err-address"></p></div>
+            <div class="field"><label for="f-city">City <span class="req" aria-hidden="true">*</span></label><input class="input" id="f-city" name="city" autocomplete="address-level2" required aria-describedby="err-city"><p class="err" id="err-city"></p></div>
+            <div class="field"><label for="f-state">State <span class="req" aria-hidden="true">*</span></label><input class="input" id="f-state" name="state" autocomplete="address-level1" value="TX" required aria-describedby="err-state"><p class="err" id="err-state"></p></div>
+            <div class="field"><label for="f-zip">ZIP code <span class="req" aria-hidden="true">*</span></label><input class="input" id="f-zip" name="zip" inputmode="numeric" autocomplete="postal-code" required aria-describedby="err-zip"><p class="err" id="err-zip"></p></div>
+          </div>
+        </fieldset>
+        <div class="preorder-box">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="flex:none"><rect x="3" y="5" width="18" height="16" rx="1"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+          <p><strong>Drop 01 is a pre-order.</strong> Nothing is charged today. We'll email you a secure payment link the day it goes live, and your size is held until then.</p>
+        </div>
+        <p style="margin-top:20px"><button class="btn btn--block" id="place-btn" type="submit">Reserve my pre-order</button></p>
+      </form>
+
+      <aside class="summary" aria-labelledby="sum-title">
+        <h2 class="cover-type" id="sum-title">Your bag</h2>
+        <div class="summary__lines" id="summary-lines"></div>
+        <div class="summary__totals">
+          <div><span>Subtotal</span><span id="co-sub">$0</span></div>
+          <div><span>Shipping</span><span id="co-ship">Free</span></div>
+          <div class="grand"><span>Total</span><span id="co-total">$0</span></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer data-site-footer></footer>
+<script src="js/mae.js?v=32"></script>
+</body>
+</html>

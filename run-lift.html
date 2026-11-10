@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Run &amp; Lift · MAE.</title>
+<meta name="description" content="MAE. Run &amp; Lift: a 4 inch run and lift short with a breathable top, made for running and lifting.">
+<meta name="theme-color" content="#d9301f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,500..900,0..100,0..1;1,9..144,500..900,0..100,0..1&family=Barlow+Condensed:wght@600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@400;500;600&family=Libre+Caslon+Condensed:ital,wght@0,700;1,700&family=Shrikhand&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wdth,wght@8..144,50..150,400;8..144,50..150,600;8..144,50..150,800&display=swap">
+<link rel="stylesheet" href="css/mae.css?v=55">
+<link rel="stylesheet" href="css/inside.css?v=1">
+<link rel="stylesheet" href="css/cards.css?v=2">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+</head>
+<body data-page="fit">
+<a class="skip" href="#main">Skip to content</a>
+<header data-site-header></header>
+
+<main id="main" data-fit-page="hybrid">
+  <!-- 1. Same layout as Court &amp; Field, calmer -->
+  <section class="fit-hero" style="background:var(--bone)">
+    <div class="fit-hero__stage">
+      <div class="fit-hero__photo"><picture><source media="(min-width: 700px)" srcset="assets/img/run-lift-hero-trio.jpg?v=3" width="2408" height="1000"><img src="assets/img/run-lift-track-run.jpg" alt="A runner in the MAE. Run &amp; Lift short on a red track, the short worn with the yellow top, and the short front and back" width="768" height="1365" style="object-position:50% 45%"></picture></div>
+      <h1 class="headline headline--outline">MAE. Run &amp; Lift</h1>
+    </div>
+  </section>
+
+  <!-- 2. Cream band with patch and 31:25 -->
+  <div class="ad-band">
+    <div class="wrap ad-band__row">
+      <span class="patch" aria-hidden="true">MAE.</span>
+      <p>Run and lift fabric, a breathable top, calmer vintage. Made to move with you. For running and the weight room.</p>
+      <p class="ref">31:25<small>Proverbs 31:25</small></p>
+    </div>
+  </div>
+
+  <!-- 3 + 4. Why it's made this way, size, add to bag -->
+  <section class="section" aria-labelledby="piece-name">
+    <div class="wrap buy">
+      <div class="reveal">
+        <div class="piece-tabs" id="piece-tabs" role="tablist" aria-label="Pick a piece"></div>
+        <p class="buy__note">Product renders until the Drop 01 samples are photographed.</p>
+      </div>
+      <div class="buy__info reveal" data-delay="1" id="buy-panel" role="tabpanel">
+        <span class="eyebrow" style="color:var(--red-ink)">Drop 01 · Run &amp; Lift</span>
+        <h2 class="headline" id="piece-name">MAE. Run &amp; Lift Short</h2>
+        <p class="color-line" id="piece-color"></p>
+        <h3 class="eyebrow why-title">Why it's made this way</h3>
+        <ul class="why-list" id="why-list"></ul>
+        <fieldset class="sizes" id="sizes"></fieldset>
+        <p class="form-error" id="size-error" role="alert"></p>
+        <div class="buy__actions">
+          <button class="btn btn--block" type="button" id="add-btn">Add to bag</button>
+          <button class="btn btn--ghost btn--block" type="button" id="add-fit-btn">Add the full fit</button>
+        </div>
+        <p class="buy__note">Pre-order. Free shipping over $75.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- The details: built by js/inside.js -->
+  <section class="its" id="inside" data-fit="runLift" aria-labelledby="inside-title"></section>
+
+  <!-- Women of the Word: trading card in every box (css/cards.css, js/cards.js) -->
+  <section class="wotw" id="in-every-box" aria-labelledby="wotw-title">
+    <div class="boxHead">
+      <div>
+        <div class="kicker cond">In every box</div>
+        <h2 id="wotw-title">Women of<br>the Word.</h2>
+      </div>
+      <p>Every MAE. order ships with a vintage trading card of a woman from scripture who never sat on the bench. <b>A new card in every box. Collect all 12.</b></p>
+    </div>
+
+    <div class="spreads">
+      <article class="spread" style="background-image:url(assets/img/box-court-bg.webp)">
+        <div class="pair">
+          <button class="c f" type="button" aria-label="Esther card, front"><span class="tag cond">Front</span><img src="assets/img/card-esther-front.webp" alt="Esther trading card, front" loading="lazy" width="750" height="1050"></button>
+          <button class="c b" type="button" aria-label="Esther card, back"><span class="tag cond">Back</span><img src="assets/img/card-esther-back.webp" alt="Esther trading card, back" loading="lazy" width="750" height="1050"></button>
+        </div>
+        <div class="cap"><div class="n"><span>No.01</span> Esther</div><div class="t">The Queen · Courage</div></div>
+      </article>
+
+      <article class="spread" style="background-image:url(assets/img/box-court-bg.webp);background-position:center 70%">
+        <div class="pair">
+          <button class="c f" type="button" aria-label="Ruth card, front"><span class="tag cond">Front</span><img src="assets/img/card-ruth-front.webp" alt="Ruth trading card, front" loading="lazy" width="750" height="1050"></button>
+          <button class="c b" type="button" aria-label="Ruth card, back"><span class="tag cond">Back</span><img src="assets/img/card-ruth-back.webp" alt="Ruth trading card, back" loading="lazy" width="750" height="1050"></button>
+        </div>
+        <div class="cap"><div class="n"><span>No.02</span> Ruth</div><div class="t">The Gleaner · Loyalty</div></div>
+      </article>
+    </div>
+
+    <div class="set">
+      <span class="cond">Collect the set</span>
+      <div class="slots">
+        <span class="slot got">01</span><span class="slot got">02</span><span class="slot">03</span><span class="slot">04</span><span class="slot">05</span><span class="slot">06</span>
+        <span class="slot">07</span><span class="slot">08</span><span class="slot">09</span><span class="slot">10</span><span class="slot">11</span><span class="slot">12</span>
+      </div>
+    </div>
+  </section>
+  <div class="wotw-lb" id="wotw-lb" role="dialog" aria-label="Card enlarged"><span class="x">Close ✕</span><img alt=""></div>
+
+  <a class="other-fit" href="court-field.html">
+    <div><span class="eyebrow">Hoop, kick, serve</span><p class="headline" style="margin-top:6px">MAE. Court &amp; Field</p></div>
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+  </a>
+</main>
+
+<footer data-site-footer></footer>
+<script src="js/mae.js?v=32"></script>
+<script src="js/inside.js?v=12"></script>
+<script src="js/cards.js?v=1"></script>
+</body>
+</html>

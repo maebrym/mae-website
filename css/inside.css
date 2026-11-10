@@ -1,0 +1,121 @@
+/* Inside the Short: layer-by-layer breakdown on the Court & Field page.
+   Everything is scoped to .its so it never touches the rest of the site.
+   Ported from MAE-inside-the-short.html (same behavior, same wording). */
+.its {
+  --its-paper: #F4EFE0; --its-paper2: #EDE5D0; --its-ink: #1F2A44; --its-red: #D9301F; --its-gold: #F4C21E;
+  --its-emerald: #0F8A5F; --its-muted: #6B6352; --its-line: rgba(31, 42, 68, .18);
+  --its-ease: cubic-bezier(.2, .75, .2, 1);
+  background: var(--its-paper); color: var(--its-ink);
+  font-family: "Roboto Serif", Georgia, serif; font-size: 16px; line-height: 1.5;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  border-top: 2px solid var(--its-ink); scroll-margin-top: 64px;
+}
+.its *, .its *::before, .its *::after { box-sizing: border-box; margin: 0; padding: 0; }
+.its button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+.its .cond { font-family: "Barlow Condensed", sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+
+/* header */
+.its-head { padding: clamp(24px, 4vw, 44px) clamp(16px, 4vw, 48px) 8px; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; }
+.its-kicker { font-size: 15px; color: var(--its-emerald); margin-bottom: 6px; }
+.its h2.its-title {
+  font-family: "Roboto Serif", serif; font-weight: 800; font-stretch: 50%; font-variation-settings: "wdth" 50, "opsz" 144;
+  font-size: clamp(46px, 6.2vw, 92px); line-height: .86; letter-spacing: -.005em; color: var(--its-red); text-transform: uppercase;
+  text-shadow: 3px 3px 0 var(--its-gold);
+}
+.its-sub { font-size: clamp(16px, 1.6vw, 19px); font-style: italic; margin-top: 12px; }
+.its-controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.its .its-btn {
+  font-family: "Barlow Condensed", sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: 17px;
+  padding: 12px 22px; border: 2px solid var(--its-ink); background: var(--its-ink); color: var(--its-paper); transition: transform .15s, background .2s;
+}
+.its .its-btn:hover { transform: translateY(-2px); }
+.its .its-btn.ghost { background: transparent; color: var(--its-ink); }
+.its .its-btn.red { background: var(--its-red); border-color: var(--its-red); color: var(--its-paper); }
+
+/* Court & Field / Run & Lift switch: hidden until a second fit is added in js/inside.js */
+.its-fits { display: flex; border: 2px solid var(--its-ink); }
+.its-fits[hidden] { display: none; }
+.its .its-fits button { font-family: "Barlow Condensed", sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: 15px; padding: 9px 14px; }
+.its .its-fits button[aria-pressed="true"] { background: var(--its-ink); color: var(--its-paper); }
+
+/* main */
+.its-main { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr); gap: clamp(16px, 3vw, 40px); padding: 12px clamp(16px, 4vw, 48px) 40px; align-items: start; }
+.its-stageWrap { position: relative; width: min(100%, 620px, calc((100vh - 60px) * .7467)); justify-self: center; }
+.its-stage { position: relative; width: 100%; aspect-ratio: 896 / 1200; background: var(--its-paper); }
+.its-assembled, .its-strip { position: absolute; left: 0; width: 100%; }
+.its-assembled { top: 0; height: 100%; transition: opacity .45s var(--its-ease), transform .6s var(--its-ease); z-index: 6; cursor: pointer; }
+.its-assembled img { width: 100%; height: 100%; display: block; object-fit: cover; }
+.its-strip { overflow: visible; opacity: 0; transition: transform .7s var(--its-ease), opacity .45s var(--its-ease), filter .3s; pointer-events: none; }
+.its-strip .crop { position: absolute; inset: 0; overflow: hidden; transition: opacity .3s; }
+.its-strip .crop img { position: absolute; left: 0; width: 100%; display: block; }
+.its-stage.open .its-assembled { opacity: 0; transform: scale(.97); pointer-events: none; }
+.its-stage.open .its-strip { opacity: 1; transform: none !important; pointer-events: auto; cursor: pointer; }
+.its-stage.focus .its-strip .crop { opacity: .25; }
+.its-stage.focus .its-strip.on .crop { opacity: 1; }
+.its-stage.focus .mk:not(.on) { opacity: .75; }
+
+.its .mk { position: absolute; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 8px; opacity: 0; transition: opacity .3s, transform .3s; z-index: 9; pointer-events: none; }
+.its-stage.open .mk { opacity: 1; pointer-events: auto; }
+.its .mk .num {
+  width: 34px; height: 34px; border-radius: 50%; background: var(--its-red); color: var(--its-paper); display: grid; place-items: center;
+  font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 16px; box-shadow: 0 0 0 3px var(--its-paper), 0 4px 10px rgba(0, 0, 0, .18); transition: transform .2s, background .2s;
+}
+.its .mk .lab { font-family: "Barlow Condensed", sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: 14px; background: var(--its-paper); padding: 2px 7px; border: 1.5px solid var(--its-ink); white-space: nowrap; }
+.its .mk.left { flex-direction: row-reverse; }
+.its .mk:hover .num, .its .mk.on .num { transform: scale(1.15); background: var(--its-ink); }
+.its .mk.on .lab { background: var(--its-gold); }
+.its-hint { text-align: center; font-size: 14px; color: var(--its-muted); margin-top: 10px; }
+
+/* card */
+.its-panel { position: sticky; top: 80px; }
+.its-card { border: 2px solid var(--its-ink); background: #FBF8EF; position: relative; overflow: hidden; min-height: 540px; display: flex; flex-direction: column; }
+.its .cardTop { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; border-bottom: 2px solid var(--its-ink); background: var(--its-ink); color: var(--its-paper); }
+.its .cardTop .cond { font-size: 15px; }
+.its .cardBody { padding: 20px 22px 22px; flex: 1; display: flex; flex-direction: column; gap: 14px; animation: its-in .4s var(--its-ease); }
+@keyframes its-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.its .bigNum { font-family: "Roboto Serif", serif; font-weight: 800; font-variation-settings: "wdth" 50, "opsz" 144; font-stretch: 50%; font-size: 84px; line-height: .8; color: var(--its-red); text-shadow: 3px 3px 0 var(--its-gold); }
+.its .cardHead { display: flex; gap: 16px; align-items: flex-end; }
+.its .cardHead h3 { font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 34px; line-height: .95; text-transform: uppercase; letter-spacing: .02em; }
+.its .what { font-size: 15px; color: var(--its-muted); }
+.its .what b { color: var(--its-ink); font-weight: 600; }
+.its .why { border-top: 1.5px dashed var(--its-line); padding-top: 12px; }
+.its .why .cond { font-size: 14px; color: var(--its-emerald); display: block; margin-bottom: 4px; }
+.its .why p { font-size: 17px; }
+.its .detail { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border: 1.5px solid var(--its-ink); display: block; background: var(--its-paper2); }
+.its .cardNav { display: flex; align-items: center; justify-content: space-between; border-top: 2px solid var(--its-ink); padding: 10px 12px; }
+.its .dots { display: flex; gap: 6px; }
+.its .dot { width: 30px; height: 30px; border: 1.5px solid var(--its-ink); font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 14px; display: grid; place-items: center; }
+.its .dot.on { background: var(--its-red); color: var(--its-paper); border-color: var(--its-red); }
+.its .arrow { font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 16px; letter-spacing: .08em; padding: 6px 10px; text-transform: uppercase; }
+.its .arrow:disabled { opacity: .3; cursor: default; }
+.its .intro { justify-content: center; }
+.its .intro .cond.big { font-size: 30px; line-height: 1; }
+.its .introList { list-style: none; display: grid; gap: 6px; margin-top: 6px; }
+.its .introList li { display: flex; gap: 10px; align-items: baseline; font-size: 16px; cursor: pointer; }
+.its .introList li span { font-family: "Barlow Condensed", sans-serif; font-weight: 700; color: var(--its-red); min-width: 24px; }
+.its .introList li:hover { color: var(--its-red); }
+
+/* views */
+.its-views { padding: 8px clamp(16px, 4vw, 48px) 56px; }
+.its-viewsHead { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; border-top: 2px solid var(--its-ink); padding-top: 14px; margin-bottom: 14px; }
+.its-viewsHead h3 { font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 26px; text-transform: uppercase; letter-spacing: .04em; }
+.its-viewsHead span { font-size: 14px; color: var(--its-muted); }
+.its-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.its-grid figure { border: 1.5px solid var(--its-ink); background: #FBF8EF; }
+.its-grid img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; display: block; }
+.its-grid figcaption { font-family: "Barlow Condensed", sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: 14px; padding: 6px 10px; border-top: 1.5px solid var(--its-ink); }
+
+@media (max-width: 880px) {
+  .its-main { grid-template-columns: 1fr; }
+  .its-panel { position: static; }
+  .its-card { min-height: 0; }
+  .its-grid { grid-template-columns: repeat(2, 1fr); }
+  .its .mk .lab { font-size: 12px; padding: 1px 5px; }
+  .its .mk .num { width: 28px; height: 28px; font-size: 14px; }
+  .its .arrow { white-space: nowrap; padding: 6px 4px; font-size: 14px; }
+  .its .dots { gap: 4px; }
+  .its .dot { width: 26px; height: 26px; font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) { .its * { transition: none !important; animation: none !important; } }
+
+/* Home page link into this section */
