@@ -36,6 +36,9 @@
     // Paste a real checkout URL (Stripe Payment Link or Shopify) to send shoppers there.
     // Leave null to run the Drop 01 pre-order flow on checkout.html.
     checkoutUrl: null,
+    // Google Apps Script web app link (see order-email/SETUP.md). Each pre-order is emailed to
+    // wearmae.co@gmail.com and logged in the "MAE. Pre-orders" sheet. Leave null to skip.
+    orderInboxUrl: null,
   };
 
   const PRODUCTS = {
@@ -504,6 +507,23 @@
   }
 
   /* ================= Checkout ================= */
+  // Sends the finished pre-order to the order inbox. Fire and forget: the shopper's confirmation never waits on it.
+  function sendOrder(order, form) {
+    if (!CONFIG.orderInboxUrl) return;
+    const f = form.elements;
+    const payload = {
+      no: order.no, name: order.name, email: order.email,
+      address: f.address.value.trim(), city: f.city.value.trim(), state: f.state.value.trim(), zip: f.zip.value.trim(),
+      website: f.website ? f.website.value : "",
+      items: order.items.map((i) => ({ name: PRODUCTS[i.id].name, size: i.size, color: PRODUCTS[i.id].color, price: PRODUCTS[i.id].price, qty: i.qty })),
+      sub: order.sub, ship: order.ship, total: order.sub + order.ship,
+    };
+    try {
+      // text/plain keeps this a simple request, which Google Apps Script accepts from any site
+      fetch(CONFIG.orderInboxUrl, { method: "POST", mode: "no-cors", keepalive: true, headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) });
+    } catch (e) { /* the order is still saved on this device as mae.lastOrder */ }
+  }
+
   function checkout() {
     const root = $("[data-checkout]");
     if (!root) return;
@@ -560,6 +580,7 @@
           items: Bag.items.slice(), sub: Bag.subtotal(), ship: Bag.shipping(),
         };
         store.set("mae.lastOrder", order);
+        sendOrder(order, form);
         const lines = Bag.linesHtml(false);
         Bag.clear();
         root.innerHTML = `<div class="confirm">
