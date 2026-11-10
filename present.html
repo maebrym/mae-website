@@ -24,7 +24,7 @@
 
   /* Cover (Press 1 and 11): the home cover, held still */
   .cv { position: absolute; inset: 0; color: #fff; }
-  .cv img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
+  .cv video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .cv::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,12,20,.55) 0%, rgba(10,12,20,.15) 38%, rgba(10,12,20,.25) 62%, rgba(10,12,20,.7) 100%); }
   .cv-in { position: absolute; inset: 3.2cqw 4cqw; z-index: 1; display: flex; flex-direction: column; }
   .cv-date { display: flex; justify-content: space-between; border-top: .18cqw solid var(--gold); border-bottom: .18cqw solid var(--gold); padding: .7cqw 0; font: 700 1.25cqw/1 var(--f-cover); letter-spacing: .26em; text-transform: uppercase; }
@@ -68,7 +68,7 @@
   <!-- Press 1 and 14 -->
   <section class="scr" id="s-cover" aria-label="Cover">
     <div class="cv">
-      <img src="assets/img/court-25.jpg" alt="">
+      <video src="assets/video/court-hero.mp4?v=3" poster="assets/video/court-hero-poster.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
       <div class="cv-in">
         <div class="cv-date"><span>November, 2026 · Drop 01</span><span>Austin, Texas</span></div>
         <div class="cv-mid">
