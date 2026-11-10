@@ -34,6 +34,8 @@
   .cv-line { align-self: flex-start; font: 700 2.4cqw/1 var(--f-cover); letter-spacing: .14em; text-transform: uppercase; border-left: .3cqw solid var(--gold); padding-left: 1.2cqw; }
 
   /* Stats (Press 3 and 4): plain white, court red */
+  #s-why { background: var(--paper); }
+  #s-why video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   #s-stats { background: #fff; }
   .st { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 0 5cqw 4cqw; }
   .st-row { transition: font-size var(--snap), opacity var(--snap), max-height var(--snap), margin var(--snap); overflow: hidden; }
@@ -80,7 +82,7 @@
   </section>
 
   <!-- Press 2 -->
-  <section class="scr" id="s-why" aria-label="Our Why"><iframe data-src="our-why.html" data-w="1440" title="Our Why" tabindex="-1"></iframe></section>
+  <section class="scr" id="s-why" aria-label="Our Why"><video id="why-vid" src="assets/video/our-why-scroll.mp4?v=1" muted playsinline preload="auto" aria-hidden="true"></video></section>
 
   <!-- Press 3 and 4 -->
   <section class="scr" id="s-stats" aria-label="Stats">
@@ -205,6 +207,9 @@
     if (step.s === "s-stats") document.getElementById("st").classList.toggle("two", !!step.two);
     const f = document.querySelector(`#${step.s} iframe`);
     if (f) place(f, step);
+    // Click 2: the Our Why scroll clip plays from the top each time, then holds on the crossed-out gap
+    const wv = document.getElementById("why-vid");
+    if (wv) { if (step.s === "s-why") { wv.currentTime = 0; wv.play().catch(() => {}); } else wv.pause(); }
     count.textContent = `${i + 1} / ${STEPS.length}`;
     try { history.replaceState(null, "", "#" + (i + 1)); } catch (e) {}
   }
