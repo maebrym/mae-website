@@ -826,9 +826,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 /* "We asked her." stacked scroll counters */
 .stats--survey { display: block; border-top: 2px solid var(--ink); }
-.stats--survey > div.count-row { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: center; gap: clamp(16px, 4vw, 56px); padding: clamp(28px, 6vh, 64px) 0; border-left: 0; border-bottom: 2px solid var(--ink); }
+.stats--survey > div.count-row { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr); align-items: center; gap: clamp(16px, 4vw, 56px); padding: clamp(28px, 6vh, 64px) 0; border-left: 0; border-bottom: 2px solid var(--ink); }
 .count-row dd { order: -1; margin: 0; }
-.count { display: block; font-family: var(--f-head); font-weight: 700; font-size: clamp(5rem, 15vw, 12.5rem); line-height: .85; letter-spacing: -.02em; color: var(--red); font-variant-numeric: tabular-nums; }
+.count { display: block; font-family: var(--f-head); font-weight: 700; font-size: clamp(3rem, 11vw, 10rem); white-space: nowrap; line-height: .85; letter-spacing: -.02em; color: var(--red); font-variant-numeric: tabular-nums; }
 .count-row dt { text-align: left; justify-self: start; font-family: var(--f-cover); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; font-size: clamp(1.1rem, 2vw, 1.6rem); line-height: 1.25; max-width: 24ch; }
 .count-row dt small { display: block; margin-top: 10px; font-family: var(--f-band); font-style: italic; font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 1.05rem; color: var(--ink-soft); }
 @media (max-width: 640px) {

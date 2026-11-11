@@ -28,6 +28,15 @@
     demand: 48,                    // Drop 01 line: more likely to buy from a female-athlete-founded brand
   };
 
+  /* ================= OUR WHY STATS: the big red numbers that count up as you scroll ================= */
+  const WHY_STATS = {
+    source: "Source: Nielsen, 2026.",
+    stats: [
+      { to: 46, suffix: " BILLION", label: "Minutes of women's sports watched in 2025" },
+      { to: 60, suffix: "%", label: "Of those fans switched brands over a company's values" },
+    ],
+  };
+
   /* ================= CONFIG: change prices and checkout here ================= */
   const CONFIG = {
     currency: "USD",
@@ -616,16 +625,16 @@
     const els = [...root.querySelectorAll(".count")];
     if (!els.length) return;
     const run = (el) => {
-      const to = +el.dataset.to, dur = 1600, t0 = performance.now();
+      const to = +el.dataset.to, suf = el.dataset.suffix ?? "%", dur = 1600, t0 = performance.now();
       const ease = (x) => 1 - Math.pow(1 - x, 3);
       const step = (now) => {
         const k = Math.min(1, (now - t0) / dur);
-        el.textContent = Math.round(ease(k) * to) + "%";
+        el.textContent = Math.round(ease(k) * to) + suf;
         if (k < 1) requestAnimationFrame(step);
       };
       requestAnimationFrame(step);
     };
-    if (reduceMotion || !("IntersectionObserver" in window)) { els.forEach((el) => { el.textContent = el.dataset.to + "%"; }); return; }
+    if (reduceMotion || !("IntersectionObserver" in window)) { els.forEach((el) => { el.textContent = el.dataset.to + (el.dataset.suffix ?? "%"); }); return; }
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => { if (e.isIntersecting) { io.unobserve(e.target); run(e.target); } });
     }, { threshold: 0.6 });
@@ -637,18 +646,16 @@
     const T = SURVEY.total;
     const stats = document.querySelector("[data-survey='stats']");
     if (stats) {
-      // Percent is rounded DOWN so we never overstate a result.
-      stats.innerHTML = SURVEY.stats.map((st) => {
-        const pct = Math.floor((st.yes / T) * 100);
-        return `<div class="count-row"><dt>${esc(st.label)}</dt>` +
-          `<dd><span class="count" data-to="${pct}" aria-hidden="true">${reduceMotion ? pct : 0}%</span><span class="sr-only">${pct}%</span></dd></div>`;
-      }).join("");
+      stats.innerHTML = WHY_STATS.stats.map((st) =>
+        `<div class="count-row"><dt>${esc(st.label)}</dt>` +
+        `<dd><span class="count" data-to="${st.to}" data-suffix="${esc(st.suffix)}" aria-hidden="true">${reduceMotion ? st.to : 0}${esc(st.suffix)}</span><span class="sr-only">${st.to}${esc(st.suffix)}</span></dd></div>`
+      ).join("");
       scrollCounts(stats);
     }
     const quote = document.querySelector("[data-survey='quote']");
     if (quote) quote.textContent = `\u201c${SURVEY.quote}\u201d`;
     const note = document.querySelector("[data-survey='note']");
-    if (note) note.textContent = `Survey of ${T} female athletes, ${SURVEY.date}.`;
+    if (note) note.textContent = `${WHY_STATS.source} Quote from our survey of ${T} female athletes, ${SURVEY.date}.`;
     const demand = document.querySelector("[data-survey='demand']");
     if (demand) demand.innerHTML = `<strong>${SURVEY.demand} of ${T}</strong> girls surveyed are more likely to buy from a brand started by a female athlete.`;
   }
