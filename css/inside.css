@@ -88,9 +88,10 @@
 .its .dot.on { background: var(--its-red); color: var(--its-paper); border-color: var(--its-red); }
 .its .arrow { font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 16px; letter-spacing: .08em; padding: 6px 10px; text-transform: uppercase; }
 .its .arrow:disabled { opacity: .3; cursor: default; }
-.its .intro { justify-content: center; }
+.its .intro { justify-content: flex-start; }
+.its .introImg { object-fit: cover; object-position: 50% 40%; }
 .its .intro .cond.big { font-size: 30px; line-height: 1; }
-.its .introList { list-style: none; display: grid; gap: 6px; margin-top: 6px; }
+.its .introList { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; margin-top: 2px; }
 .its .introList li { display: flex; gap: 10px; align-items: baseline; font-size: 16px; cursor: pointer; }
 .its .introList li span { font-family: "Barlow Condensed", sans-serif; font-weight: 700; color: var(--its-red); min-width: 24px; }
 .its .introList li:hover { color: var(--its-red); }

@@ -203,6 +203,7 @@
       <div class="cardBody intro">
         <div class="cond big">${fit.introHead}</div>
         <p class="what">${fit.introText}</p>
+        <img class="detail introImg" src="${IMG + fit.views[3].src}" alt="The ${fit.label} short, ${fit.views[3].cap.toLowerCase()}">
         <ul class="introList">${fit.layers.slice(1).map((l, k) => `<li data-i="${k + 1}"><span>${l.n}</span>${l.t}</li>`).join("")}</ul>
       </div>${nav()}`;
     wire();
