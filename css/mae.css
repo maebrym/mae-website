@@ -767,15 +767,21 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 .story__photo { position: relative; z-index: 0; margin: clamp(-96px, -6.5vw, -44px) 0 0; border: 2px solid var(--ink); box-shadow: 8px 8px 0 var(--red); }
 .story h1.headline { position: relative; z-index: 1; -webkit-text-stroke: clamp(5px, .6vw, 9px) var(--cream); paint-order: stroke fill; }
-.story__photo img { display: block; width: 100%; height: auto; }
+.story__photo img { display: block; width: 100%; height: auto; aspect-ratio: 1000 / 870; object-fit: cover; }
+.story__photo--court { box-shadow: 8px 8px 0 var(--yellow); }
+.story__photo--court img { object-position: 50% 45%; }
+.story__photo figcaption { position: absolute; left: 14px; bottom: 14px; background: var(--yellow); color: var(--ink); border: 2px solid var(--ink); padding: 6px 10px; font-family: var(--f-cover); font-weight: 700; font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; }
+@media (max-width: 899px) { .story__photo--court { margin-top: 24px; } }
 
 /* Our Why: headline across the top, photo tucked under it beside the story */
 @media (min-width: 900px) {
-  .story { grid-template-areas: "head head" "photo copy"; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); row-gap: 0; align-items: start; }
+  .story { grid-template-areas: "head head" "photo court" "copy copy"; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); row-gap: 0; align-items: start; }
   .story > div:first-child { display: contents; }
   .story h1.headline { grid-area: head; max-width: none; }
   .story__photo { grid-area: photo; margin-top: clamp(-52px, -3.2vw, -28px); }
-  .story .band-copy { grid-area: copy; padding-top: clamp(12px, 2vw, 28px); }
+  .story__photo--court { grid-area: court; }
+  .story .band-copy { grid-area: copy; padding-top: clamp(36px, 4vw, 56px); column-count: 2; column-gap: clamp(32px, 5vw, 72px); }
+  .story .band-copy p { break-inside: avoid; }
 }
 
 /* Accent serif: Fraunces, a soft 70s magazine face for pull quotes, numbers and names */
