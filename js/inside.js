@@ -174,7 +174,7 @@
     stage.querySelectorAll(".its-strip").forEach((s) => { s.style.transform = v ? "" : s.dataset.from; });
     btn.textContent = v ? "Put it back together" : "Break it down";
     btn.classList.toggle("red", !v); btn.classList.toggle("ghost", v);
-    hint.textContent = v ? "Tap a number, or use the arrow keys" : "Tap the short to break it down";
+    hint.textContent = v ? "Tap a number on the short to see each layer" : "Tap the short to break it down";
     if (!v) { cur = 0; stage.classList.remove("focus"); renderIntro(); mark(); }
   }
   function select(i) {
@@ -189,11 +189,8 @@
     stage.querySelectorAll(".mk").forEach((m) => m.classList.toggle("on", +m.dataset.l === cur));
   }
   const count = () => fit.layers.length - 1;
-  function nav() {
-    return `<div class="cardNav"><button class="arrow" id="its-prev" type="button" ${cur <= 1 ? "disabled" : ""}>← Prev</button>
-      <div class="dots">${fit.layers.slice(1).map((l, k) => `<button class="dot ${k + 1 === cur ? "on" : ""}" type="button" data-i="${k + 1}">${l.n}</button>`).join("")}</div>
-      <button class="arrow" id="its-next" type="button" ${cur >= count() ? "disabled" : ""}>Next →</button></div>`;
-  }
+  // No Prev / numbered squares / Next row: people tap the short itself to step through the layers.
+  function nav() { return ""; }
   function wire() {
     card.querySelectorAll(".dot").forEach((d) => { d.onclick = () => select(+d.dataset.i); });
     const p = card.querySelector("#its-prev"), n = card.querySelector("#its-next");
