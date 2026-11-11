@@ -660,6 +660,15 @@
     if (demand) demand.innerHTML = `<strong>${SURVEY.demand} of ${T}</strong> girls surveyed are more likely to buy from a brand started by a female athlete.`;
   }
 
+  /* Our Why: the red lines scratch through "the gap on the rack" headings when the cards scroll into view */
+  function strikeOnScroll() {
+    const cols = document.querySelector(".gap-cols");
+    if (!cols) return;
+    if (reduceMotion || !("IntersectionObserver" in window)) { cols.classList.add("is-struck"); return; }
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { cols.classList.add("is-struck"); io.disconnect(); } }), { threshold: 0.55 });
+    io.observe(cols);
+  }
+
   /* ================= Boot ================= */
   renderChrome();
   buildDrawer();
@@ -669,6 +678,7 @@
   shop();
   fitPage();
   survey();
+  strikeOnScroll();
   wallRows();
   emailForms();
   checkout();

@@ -382,7 +382,14 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .gap-cols { display: grid; grid-template-columns: repeat(3, 1fr); border: 2px solid var(--ink); }
 .gap-col { padding: clamp(20px, 3vw, 36px); border-right: 2px solid var(--ink); background: var(--paper); }
 .gap-col:last-child { border-right: 0; }
-.gap-col h3 { margin: 0 0 12px; font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--ink); text-decoration: line-through; text-decoration-color: var(--red); text-decoration-thickness: 4px; }
+.gap-col h3 { margin: 0 0 12px; font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--ink); }
+/* The red strike-through scratches across each heading as the cards scroll into view */
+.gap-col .strike { position: relative; display: inline-block; }
+.gap-col .strike::after { content: attr(data-text); position: absolute; inset: 0; color: transparent; text-decoration: line-through; text-decoration-color: var(--red); text-decoration-thickness: 4px; clip-path: inset(0 100% 0 0); transition: clip-path .85s cubic-bezier(.65, 0, .25, 1); pointer-events: none; }
+.gap-cols.is-struck .strike::after { clip-path: inset(0 0 0 0); }
+.gap-cols.is-struck .gap-col:nth-child(2) .strike::after { transition-delay: .3s; }
+.gap-cols.is-struck .gap-col:nth-child(3) .strike::after { transition-delay: .6s; }
+@media (prefers-reduced-motion: reduce) { .gap-col .strike::after { clip-path: none; transition: none; } }
 .gap-col p { margin: 0; }
 .gap-col .num { font-family: var(--f-band); font-style: italic; color: var(--red-ink); font-size: 1.1rem; display: block; margin-bottom: 6px; }
 .mae-bar {
