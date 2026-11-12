@@ -38,7 +38,7 @@
         { n: "02", t: "The Outer Shell", img: "court-field-side.jpg?v=9", what: "<b>Shiny navy dazzle</b>, 5\" inseam, relaxed cut.",
           why: "The 90s court shine, cut for her. Loose and flowy, so it moves without clinging. Relaxed, not tight, not showy." },
         { n: "03", t: "The Verse", img: "court-field-tape.jpg?v=6", what: "<b>Cream mesh side panel</b> with emerald woven tape: FAINT, YET PURSUING · 8:4.",
-          why: "The mesh lets heat out where she needs it. The tape is Judges 8:4. Gideon's 300 were exhausted and kept going anyway. Every girl who wears it carries that." },
+          why: "The mesh lets heat out where she needs it. The tape is Judges 8:4. Gideon started with 32,000 men, and in the end 300 stayed. Outnumbered and exhausted, they stayed in the fight. Every girl who wears it carries that." },
         { n: "04", t: "The Undershort", img: "court-field-liner.jpg?v=6", what: "<b>Featherlight, opaque, squat-proof.</b> Silicone gripper at the leg.",
           why: "Built in and so thin she forgets it's there. The gripper keeps it from riding up, and it's cut shorter than the shell so it never peeks out. Nothing shows. Nothing chafes." },
         { n: "05", t: "The Hem", img: "court-field-hem.jpg?v=9", what: "<b>Straight hem</b>, no slits, wider leg opening.",
