@@ -483,7 +483,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   display: grid; grid-template-columns: minmax(130px, auto) 1fr 28px; gap: 16px; align-items: center; text-align: left;
 }
 .why-btn strong { font-family: var(--f-cover); font-weight: 700; font-size: 1.25rem; letter-spacing: .06em; text-transform: uppercase; }
-.why-btn span { font-family: var(--f-band); font-size: 1.15rem; font-style: italic; text-align: right; }
+.why-btn span { font-family: var(--f-cover); font-weight: 600; font-style: normal; text-transform: uppercase; letter-spacing: .22em; font-size: .85rem; color: var(--red-ink); text-align: right; }
 .why-btn svg { transition: transform var(--t-med) var(--ease-out); justify-self: end; }
 .why-btn[aria-expanded="true"] svg { transform: rotate(45deg); }
 .why-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-med) var(--ease-out); }
