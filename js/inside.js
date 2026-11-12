@@ -124,7 +124,7 @@
       <aside class="its-panel"><div class="its-card" id="its-card"></div></aside>
     </div>
     <div class="its-views">
-      <div class="its-viewsHead"><h3 id="its-views-title"></h3><span id="its-views-note"></span></div>
+      <div class="its-viewsHead"><h3 id="its-views-title"></h3></div>
       <div class="its-grid" id="its-grid"></div>
     </div>`;
 
@@ -136,7 +136,6 @@
     $("inside-title").innerHTML = fit.title;
     $("its-sub").textContent = fit.sub;
     $("its-views-title").textContent = fit.viewsTitle;
-    $("its-views-note").textContent = fit.viewsNote;
     $("its-grid").innerHTML = fit.views.map((v) =>
       `<figure><img src="${IMG + v.src}" alt="${v.cap}" loading="lazy"><figcaption>${v.cap}</figcaption></figure>`).join("");
     $$("#its-fits button").forEach((b) => b.setAttribute("aria-pressed", String(FITS[b.dataset.fit] === fit)));
