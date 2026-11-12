@@ -50,7 +50,7 @@
       viewsNote: "Drop 01 · Navy dazzle · Cream mesh · Emerald verse tape",
       views: [
         { src: "court-field-front.jpg?v=9", cap: "Front" }, { src: "court-field-back.jpg?v=9", cap: "Back" },
-        { src: "court-field-side.jpg?v=9", cap: "Side" }, { src: "court-field-court.jpg?v=2", cap: "On the court" },
+        { src: "court-field-side.jpg?v=9", cap: "Side" }, { src: "court-field-court.jpg?v=3", cap: "On the court" },
       ],
       introHead: "A short she won't want to roll.",
       introText: "Most \"modest\" shorts are just longer. These were rebuilt layer by layer for girls who play.",
