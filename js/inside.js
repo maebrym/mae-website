@@ -52,6 +52,7 @@
         { src: "court-field-front.jpg?v=9", cap: "Front" }, { src: "court-field-back.jpg?v=9", cap: "Back" },
         { src: "court-field-side.jpg?v=9", cap: "Side" }, { src: "court-field-court.jpg?v=3", cap: "On the court" },
       ],
+      introImg: { src: "court-field-model.jpg?v=1", alt: "The For the Game Short, worn" },
       introHead: "A short she won't want to roll.",
       introText: "Most \"modest\" shorts are just longer. These were rebuilt layer by layer for girls who play.",
     },
@@ -202,7 +203,7 @@
       <div class="cardBody intro">
         <div class="cond big">${fit.introHead}</div>
         <p class="what">${fit.introText}</p>
-        <img class="detail introImg" src="${IMG + fit.views[3].src}" alt="The ${fit.label} short, ${fit.views[3].cap.toLowerCase()}">
+        <img class="detail introImg${fit.introImg ? " introImg--tall" : ""}" src="${IMG + (fit.introImg ? fit.introImg.src : fit.views[3].src)}" alt="${fit.introImg ? fit.introImg.alt : `The ${fit.label} short, ${fit.views[3].cap.toLowerCase()}`}">
         <ul class="introList">${fit.layers.slice(1).map((l, k) => `<li data-i="${k + 1}"><span>${l.n}</span>${l.t}</li>`).join("")}</ul>
       </div>${nav()}`;
     wire();
