@@ -52,13 +52,13 @@
 
   const PRODUCTS = {
     "athlete-short": {
-      fit: "athlete", piece: "short", name: "MAE. Court & Field Short", price: 48,
+      fit: "athlete", piece: "short", tab: "For the Game Short", name: "MAE. Court & Field Short", price: 48,
       specs: '5" · 9" rise · hidden liner', color: "Navy / Green stripe", hex: "#1f2f6b",
       img: "assets/img/court-field-short.jpg?v=9", alt: "MAE. Court & Field Short, front: a shiny navy short with a straight hem, cream mesh side panels, emerald verse tape, and a MAE. patch on the leg",
       back: "assets/img/court-field-short-back.jpg?v=9", backAlt: "MAE. Court & Field Short, back: navy with cream mesh side panels and emerald tape reading FAINT, YET PURSUING 8:4",
     },
     "athlete-tee": {
-      fit: "athlete", piece: "top", name: "MAE. Court & Field Tee", price: 38,
+      fit: "athlete", piece: "top", tab: "For the 300 Shirt", name: "MAE. Court & Field Tee", price: 38,
       specs: "Boxy · front and back graphic", color: "Cream", hex: "#ede2d1",
       img: "assets/img/court-field-tee-front.jpg?v=6", alt: "MAE. Court & Field Tee, front: a cream tee with green sport figures and For the 300.",
       back: "assets/img/court-field-tee-back.jpg?v=6", backAlt: "MAE. Court & Field Tee, back: JUDGES 8:4 and FAINT, YET PURSUING",
@@ -448,7 +448,7 @@
 
     const tabs = $("#piece-tabs");
     tabs.innerHTML = fit.pieces.map((id) => `<button class="piece-tab" type="button" role="tab" id="tab-${id}" aria-controls="buy-panel" data-piece="${id}">
-        ${mockHtml(id)}<span>${esc(PRODUCTS[id].piece === "short" ? "The short" : "The top")}<b>${money(PRODUCTS[id].price)}</b></span></button>`).join("");
+        ${mockHtml(id)}<span>${esc(PRODUCTS[id].tab || (PRODUCTS[id].piece === "short" ? "The short" : "The top"))}<b>${money(PRODUCTS[id].price)}</b></span></button>`).join("");
 
     $("#why-list").innerHTML = fit.why.map(([k, short, long], i) => `<li>
         <button class="why-btn" type="button" aria-expanded="false" aria-controls="why-${i}"><strong>${esc(k)}</strong><span>${esc(short)}</span>${ICON.plus}</button>
