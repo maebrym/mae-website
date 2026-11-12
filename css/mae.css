@@ -884,3 +884,20 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .give-one__list li:first-child { border-top: 0; padding-top: 0; }
 .give-one__list b { font-family: var(--f-cover); font-weight: 700; letter-spacing: .12em; text-transform: uppercase; font-size: .9em; color: var(--red-ink); margin-right: 6px; }
 @media (max-width: 760px) { .give-one { grid-template-columns: 1fr; } }
+
+/* Font cleanup: four fonts only. Shrikhand (logo), Libre Caslon Condensed (headlines),
+   Barlow Condensed (titles, labels), Jost (body). EB Garamond, Fraunces and Alfa Slab One retired. */
+:root { --f-band: var(--f-ui); --f-accent: var(--f-head); }
+.headline em, .footer__motto, .cover__dateline em, .sport-card__place, .gap-col .num, .verse-big blockquote,
+.ad-band .ref small, .form-success, .empty p, .hangtag__place, .road__date, .tile__place, .road__note,
+.asked__note, .count-row dt small, .verse-big cite, .makers__note { font-style: normal; font-variation-settings: normal; }
+.headline em { font-family: inherit; font-weight: inherit; letter-spacing: inherit; }
+.product-card h3, .hangtag__name { font-family: var(--f-cover); font-weight: 900; text-transform: uppercase; letter-spacing: 0; line-height: .95; font-variation-settings: normal; }
+.pull, .asked__quote, .outreach__who, .plan-hero__demand strong, .makers__note { font-family: var(--f-head); font-weight: 700; font-variation-settings: normal; }
+.verse-big blockquote { font-family: var(--f-head); font-weight: 700; line-height: 1; }
+.verse-big cite { font-family: var(--f-cover); font-weight: 700; text-transform: uppercase; letter-spacing: .2em; font-size: 1rem; }
+.gap-col .num { font-family: var(--f-cover); font-weight: 700; text-transform: uppercase; letter-spacing: .16em; font-size: 1rem; }
+.footer__motto { font-family: var(--f-head); font-weight: 700; font-size: 1.6rem; line-height: 1.1; }
+.fit-tile .headline, .tile h3 { font-family: var(--f-cover); font-weight: 900; text-transform: uppercase; letter-spacing: 0; }
+.fit-tile .headline { font-size: 11cqi; line-height: .95; }
+.product-card h3 { font-size: clamp(1.9rem, 2.8vw, 2.6rem); }

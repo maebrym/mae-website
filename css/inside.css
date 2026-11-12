@@ -6,7 +6,7 @@
   --its-emerald: #0F8A5F; --its-muted: #6B6352; --its-line: rgba(31, 42, 68, .18);
   --its-ease: cubic-bezier(.2, .75, .2, 1);
   background: var(--its-paper); color: var(--its-ink);
-  font-family: "Roboto Serif", Georgia, serif; font-size: 16px; line-height: 1.5;
+  font-family: "Jost", "Helvetica Neue", Arial, sans-serif; font-size: 16px; line-height: 1.5;
   -webkit-font-smoothing: antialiased; overflow-x: hidden;
   border-top: 2px solid var(--its-ink); scroll-margin-top: 64px;
 }
@@ -18,11 +18,11 @@
 .its-head { padding: clamp(24px, 4vw, 44px) clamp(16px, 4vw, 48px) 8px; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; }
 .its-kicker { font-size: 15px; color: var(--its-emerald); margin-bottom: 6px; }
 .its h2.its-title {
-  font-family: "Roboto Serif", serif; font-weight: 800; font-stretch: 50%; font-variation-settings: "wdth" 50, "opsz" 144;
+  font-family: "Barlow Condensed", sans-serif; font-weight: 900;
   font-size: clamp(46px, 6.2vw, 92px); line-height: .86; letter-spacing: -.005em; color: var(--its-red); text-transform: uppercase;
   text-shadow: 3px 3px 0 var(--its-gold);
 }
-.its-sub { font-size: clamp(16px, 1.6vw, 19px); font-style: italic; margin-top: 12px; }
+.its-sub { font-size: clamp(16px, 1.6vw, 19px); margin-top: 12px; }
 .its-controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
 .its .its-btn {
   font-family: "Barlow Condensed", sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: 17px;
@@ -73,7 +73,7 @@
 .its .cardTop .cond { font-size: 15px; }
 .its .cardBody { padding: 20px 22px 22px; flex: 1; display: flex; flex-direction: column; gap: 14px; animation: its-in .4s var(--its-ease); }
 @keyframes its-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-.its .bigNum { font-family: "Roboto Serif", serif; font-weight: 800; font-variation-settings: "wdth" 50, "opsz" 144; font-stretch: 50%; font-size: 84px; line-height: .8; color: var(--its-red); text-shadow: 3px 3px 0 var(--its-gold); }
+.its .bigNum { font-family: "Barlow Condensed", sans-serif; font-weight: 900; font-size: 84px; line-height: .8; color: var(--its-red); text-shadow: 3px 3px 0 var(--its-gold); }
 .its .cardHead { display: flex; gap: 16px; align-items: flex-end; }
 .its .cardHead h3 { font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 34px; line-height: .95; text-transform: uppercase; letter-spacing: .02em; }
 .its .what { font-size: 15px; color: var(--its-muted); }
