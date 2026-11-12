@@ -419,7 +419,7 @@
   function shop() {
     const grid = $("#products");
     if (!grid) return;
-    grid.innerHTML = Object.entries(PRODUCTS).map(([id, p], i) => `
+    grid.innerHTML = ["athlete-tee", "athlete-short", "hybrid-top", "hybrid-short"].map((id) => [id, PRODUCTS[id]]).map(([id, p], i) => `
       <a class="product-card reveal" data-delay="${i}" data-fit="${p.fit}" href="${FITS[p.fit].url}?item=${id}">
         <div class="product-card__media">${mockHtml(id)}</div>
         <div class="product-card__row"><h3>${esc(p.name)}</h3><span class="price">${money(p.price)}</span></div>
