@@ -423,7 +423,6 @@
       <a class="product-card reveal" data-delay="${i}" data-fit="${p.fit}" href="${FITS[p.fit].url}?item=${id}">
         <div class="product-card__media">${mockHtml(id)}</div>
         <div class="product-card__row"><h3>${esc(p.name)}</h3><span class="price">${money(p.price)}</span></div>
-        <p class="product-card__specs">${esc(p.specs)} · ${esc(p.color)}</p>
       </a>`).join("");
     const btns = $$("[data-filter]");
     const apply = (f) => {
