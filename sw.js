@@ -2,7 +2,7 @@
 // Installed by present.html. It saves every file listed in sw-files.json, then serves
 // the live site when the network answers quickly and the saved copy when it does not.
 // After changing site files, regenerate sw-files.json and bump VERSION.
-const VERSION = "mae-v33";
+const VERSION = "mae-v34";
 
 self.addEventListener("install", (e) => {
   e.waitUntil((async () => {
