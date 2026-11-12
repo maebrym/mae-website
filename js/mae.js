@@ -85,7 +85,7 @@
       why: [
         ["Shorter rise", "why she rolls", "The rise is the distance from the crotch to the waistband. Most shorts cut it long, so the waistband rides up past the belly button and girls roll it down. MAE. cuts a 9\" rise, so the waistband already sits low on the hips, just below the belly button, right where she wants it."],
         ['5" inseam', "covered and fast", "Long enough to stay covered at practice, short enough to stay fast. The leg opening is cut wider so it moves on a crossover instead of riding up."],
-        ["Hidden liner", "no chafe, never shows", 'A built-in bike short liner with a 2.5" inseam sits under the 5" outer short. It stays hidden on a jump stop, a closeout, or a dive for a loose ball.'],
+        ["Hidden liner", "no chafe, always covered", 'A built-in bike short liner with a 2.5" inseam sits under the 5" outer short. It stays hidden on a jump stop, a closeout, or a dive for a loose ball.'],
         ["Squat-proof", "opaque liner fabric", "The liner is cut from an opaque knit, so a low defensive stance is just a defensive stance."],
         ["Boxy tee", "For the 300. on front", "Relaxed through the body with regular sleeves and a regular neckline. Loose enough that nothing clings. For the 300. on the front, Judges 8:4 on the back."],
       ],
