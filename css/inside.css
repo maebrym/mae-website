@@ -90,7 +90,7 @@
 .its .arrow:disabled { opacity: .3; cursor: default; }
 .its .intro { justify-content: flex-start; }
 .its .introImg { object-fit: cover; object-position: 50% 40%; }
-.its .introImg--tall { aspect-ratio: 4 / 5; object-position: 50% 12%; }
+.its .introImg--tall { aspect-ratio: 848 / 1264; object-position: 50% 50%; max-width: 380px; align-self: center; }
 .its .intro .cond.big { font-size: 30px; line-height: 1; }
 .its .introList { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; margin-top: 2px; }
 .its .introList li { display: flex; gap: 10px; align-items: baseline; font-size: 16px; cursor: pointer; }
