@@ -88,7 +88,7 @@
         { n: "06", t: "The Patch", img: "run-lift-patch.jpg?v=8", what: "<b>MAE. in court red</b> on a cream patch, lower leg. The same tag as the Court &amp; Field.",
           why: "The mark on every piece. Modest with a why." },
       ],
-      viewsTitle: "The Run & Lift Short",
+      viewsTitle: "MAE. Short",
       viewsNote: "Drop 01 · Bone satin · Pink panels · Red stripes",
       views: [
         { src: "run-lift-front.jpg?v=8", cap: "Front" }, { src: "run-lift-back.jpg?v=6", cap: "Back" },

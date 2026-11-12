@@ -64,16 +64,16 @@
       back: "assets/img/court-field-tee-back.jpg?v=6", backAlt: "For the 300 Shirt, back: JUDGES 8:4 and FAINT, YET PURSUING",
     },
     "hybrid-short": {
-      fit: "hybrid", piece: "short", name: "MAE. Run & Lift Short", price: 48,
+      fit: "hybrid", piece: "short", tab: "MAE. Short", name: "MAE. Short", price: 48,
       specs: '4" · squat-proof', color: "Cream / Pink panel", hex: "#ece4d4",
-      img: "assets/img/run-lift-short.jpg?v=9", alt: "MAE. Run & Lift Short, front: a cream run short with a pink-trimmed waistband, pink side panels with red stripes, and a MAE. patch on the leg",
-      back: "assets/img/run-lift-short-back.jpg?v=9", backAlt: "MAE. Run & Lift Short, back: cream with pink side panels and red stripes",
+      img: "assets/img/run-lift-short.jpg?v=9", alt: "MAE. Short, front: a cream run short with a pink-trimmed waistband, pink side panels with red stripes, and a MAE. patch on the leg",
+      back: "assets/img/run-lift-short-back.jpg?v=9", backAlt: "MAE. Short, back: cream with pink side panels and red stripes",
     },
     "hybrid-top": {
-      fit: "hybrid", piece: "top", name: "MAE. Run & Lift Top", price: 38,
+      fit: "hybrid", piece: "top", tab: "MAE. Shirt", name: "MAE. Shirt", price: 38,
       specs: "Breathable · front and back graphic", color: "Golden Yellow", hex: "#e9c96a",
-      img: "assets/img/run-lift-top-front.jpg?v=6", alt: "MAE. Run & Lift Top, front: a golden yellow cap-sleeve top with a red MAE. logo and a green runner across the chest",
-      back: "assets/img/run-lift-top-back.jpg?v=6", backAlt: "MAE. Run & Lift Top, back: the MAE. runner logo over a striped bar and MODESTY MEETS THE MOMENT",
+      img: "assets/img/run-lift-top-front.jpg?v=6", alt: "MAE. Shirt, front: a golden yellow cap-sleeve top with a red MAE. logo and a green runner across the chest",
+      back: "assets/img/run-lift-top-back.jpg?v=6", backAlt: "MAE. Shirt, back: the MAE. runner logo over a striped bar and MODESTY MEETS THE MOMENT",
     },
   };
   const SIZES = ["XS", "S", "M", "L", "XL"];
