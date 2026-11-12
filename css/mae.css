@@ -901,3 +901,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .fit-tile .headline, .tile h3 { font-family: var(--f-cover); font-weight: 900; text-transform: uppercase; letter-spacing: 0; }
 .fit-tile .headline { font-size: 11cqi; line-height: .95; }
 .product-card h3 { font-size: clamp(1.9rem, 2.8vw, 2.6rem); }
+/* Footer: no divider, tighter */
+.site-footer { padding: 36px 0 22px; }
+.footer__bottom { margin-top: 18px; padding-top: 0; border-top: 0; }
+.other-fit { grid-template-columns: 1fr; }
