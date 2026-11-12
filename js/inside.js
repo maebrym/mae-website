@@ -95,6 +95,7 @@
         { src: "run-lift-front.jpg?v=8", cap: "Front" }, { src: "run-lift-back.jpg?v=6", cap: "Back" },
         { src: "run-lift-side.jpg?v=6", cap: "Side" }, { src: "run-lift-track-run.jpg", cap: "On the track" },
       ],
+      introImg: { src: "run-lift-street.jpg?v=1", alt: "The MAE. Short and MAE. Shirt, worn on a New York street" },
       introHead: "A short that keeps up.",
       introText: "Most \"modest\" shorts are just longer. This one was rebuilt layer by layer for the run and the rack.",
     },
