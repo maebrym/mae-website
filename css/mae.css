@@ -535,8 +535,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .c-card__top .cover-type { font-size: clamp(2.2rem, 3.6vw, 3rem); }
 .c-card__top--photo { position: relative; overflow: hidden; justify-content: flex-end; background: var(--ink); }
 .c-card__top--photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
-.c-card__top--photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(29,27,25,.45), rgba(29,27,25,0) 60%); }
-.c-card__title { position: relative; z-index: 1; margin: 0; font: 700 clamp(2.6rem, 4.2vw, 3.6rem)/.92 var(--f-head); letter-spacing: -.02em; color: var(--red); -webkit-text-stroke: 6px var(--cream); paint-order: stroke fill; }
+.c-card__title { margin: 0; padding: 20px 24px 0; border-top: 2px solid var(--ink); font-family: var(--f-cover); font-weight: 900; font-size: clamp(2.2rem, 3.4vw, 3rem); line-height: .95; letter-spacing: -.005em; text-transform: uppercase; color: var(--red); }
+.c-card .c-card__title + p { border-top: 0; padding-top: 10px; }
 .c-card p { margin: 0; padding: 20px 24px 24px; border-top: 2px solid var(--ink); }
 @media (max-width: 860px) { .cards3 { grid-template-columns: 1fr; } }
 
