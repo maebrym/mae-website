@@ -225,7 +225,7 @@
       f.className = "site-footer";
       f.innerHTML = `<div class="wrap">
         <div class="footer__top">
-          <div><p class="footer__logo logo" aria-hidden="true">MAE.</p><p class="footer__motto">MAE. Where modesty meets the moment.</p></div>
+          <div><p class="footer__logo logo" aria-hidden="true">MAE.</p><p class="footer__motto">MAE. Where Modesty Meets The Moment</p></div>
           <ul class="footer__links">${NAV.map(([, l, href]) => `<li><a href="${href}">${l}</a></li>`).join("")}<li><a href="court-field.html">Court & Field</a></li><li><a href="run-lift.html">Run & Lift</a></li></ul>
         </div>
         <div class="footer__bottom"><span>Built in Austin, Texas.</span><span>Judges 8:4 · Proverbs 31:25</span></div>
