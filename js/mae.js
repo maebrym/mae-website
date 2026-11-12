@@ -435,7 +435,7 @@
     };
     btns.forEach((b) => b.addEventListener("click", () => apply(b.dataset.filter)));
     const start = new URLSearchParams(location.search).get("fit");
-    apply(FITS[start] ? start : "all");
+    apply("all");
   }
 
   /* ================= Fit (product) page ================= */
