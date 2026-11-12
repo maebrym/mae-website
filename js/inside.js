@@ -46,7 +46,7 @@
         { n: "06", t: "The Patch", img: "court-field-patch.jpg?v=8", what: "<b>MAE. in court red</b> on a cream patch, lower left leg.",
           why: "The mark on every piece. Modest with a why. Brand new and bright now, with a vintage wash coming in production." },
       ],
-      viewsTitle: "The Court & Field Short",
+      viewsTitle: "For the Game Short",
       viewsNote: "Drop 01 · Navy dazzle · Cream mesh · Emerald verse tape",
       views: [
         { src: "court-field-front.jpg?v=9", cap: "Front" }, { src: "court-field-back.jpg?v=9", cap: "Back" },

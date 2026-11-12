@@ -52,16 +52,16 @@
 
   const PRODUCTS = {
     "athlete-short": {
-      fit: "athlete", piece: "short", tab: "For the Game Short", name: "MAE. Court & Field Short", price: 48,
+      fit: "athlete", piece: "short", name: "For the Game Short", price: 48,
       specs: '5" · 9" rise · hidden liner', color: "Navy / Green stripe", hex: "#1f2f6b",
-      img: "assets/img/court-field-short.jpg?v=9", alt: "MAE. Court & Field Short, front: a shiny navy short with a straight hem, cream mesh side panels, emerald verse tape, and a MAE. patch on the leg",
-      back: "assets/img/court-field-short-back.jpg?v=9", backAlt: "MAE. Court & Field Short, back: navy with cream mesh side panels and emerald tape reading FAINT, YET PURSUING 8:4",
+      img: "assets/img/court-field-short.jpg?v=9", alt: "For the Game Short, front: a shiny navy short with a straight hem, cream mesh side panels, emerald verse tape, and a MAE. patch on the leg",
+      back: "assets/img/court-field-short-back.jpg?v=9", backAlt: "For the Game Short, back: navy with cream mesh side panels and emerald tape reading FAINT, YET PURSUING 8:4",
     },
     "athlete-tee": {
-      fit: "athlete", piece: "top", tab: "For the 300 Shirt", name: "MAE. Court & Field Tee", price: 38,
+      fit: "athlete", piece: "top", name: "For the 300 Shirt", price: 38,
       specs: "Boxy · front and back graphic", color: "Cream", hex: "#ede2d1",
-      img: "assets/img/court-field-tee-front.jpg?v=6", alt: "MAE. Court & Field Tee, front: a cream tee with green sport figures and For the 300.",
-      back: "assets/img/court-field-tee-back.jpg?v=6", backAlt: "MAE. Court & Field Tee, back: JUDGES 8:4 and FAINT, YET PURSUING",
+      img: "assets/img/court-field-tee-front.jpg?v=6", alt: "For the 300 Shirt, front: a cream tee with green sport figures and For the 300.",
+      back: "assets/img/court-field-tee-back.jpg?v=6", backAlt: "For the 300 Shirt, back: JUDGES 8:4 and FAINT, YET PURSUING",
     },
     "hybrid-short": {
       fit: "hybrid", piece: "short", name: "MAE. Run & Lift Short", price: 48,
