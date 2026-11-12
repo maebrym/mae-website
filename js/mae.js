@@ -468,7 +468,6 @@
       const p = PRODUCTS[id];
       $$(".piece-tab", tabs).forEach((t) => t.setAttribute("aria-selected", String(t.dataset.piece === id)));
       $("#piece-name").textContent = p.name;
-      $("#piece-color").innerHTML = `<span class="swatch" style="background:${p.hex}" aria-hidden="true"></span>${esc(p.color)} · ${esc(p.specs)}`;
       $("#add-btn").innerHTML = `Add to bag · ${money(p.price)}`;
       const url = new URL(location.href); url.searchParams.set("item", id); history.replaceState(null, "", url);
     };
