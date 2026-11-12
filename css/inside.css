@@ -102,7 +102,7 @@
 .its-viewsHead { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; border-top: 2px solid var(--its-ink); padding-top: 14px; margin-bottom: 14px; }
 .its-viewsHead h3 { font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 26px; text-transform: uppercase; letter-spacing: .04em; }
 .its-viewsHead span { font-size: 14px; color: var(--its-muted); }
-.its-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.its-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); grid-auto-flow: column; gap: 14px; }
 .its-grid figure { border: 1.5px solid var(--its-ink); background: #FBF8EF; }
 .its-grid img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; display: block; }
 .its-grid figcaption { font-family: "Barlow Condensed", sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: 14px; padding: 6px 10px; border-top: 1.5px solid var(--its-ink); }
@@ -121,3 +121,18 @@
 @media (prefers-reduced-motion: reduce) { .its * { transition: none !important; animation: none !important; } }
 
 /* Home page link into this section */
+
+/* Intro state: no side box, short centered, layer list right under it */
+.its-main.is-intro { grid-template-columns: 1fr; }
+.its-main.is-intro .its-panel { display: none; }
+.its .its-list { margin-top: 18px; padding: 16px 0 0; border-top: 1.5px solid var(--its-ink); }
+.its .its-list li { font-size: 17px; }
+.its .its-list li.on { color: var(--its-red); }
+@media (max-width: 880px) {
+  .its-grid { grid-auto-flow: row; grid-template-columns: repeat(2, 1fr); }
+  .its-grid figure:last-child:nth-child(odd) { grid-column: span 2; }
+  .its-grid figure:last-child:nth-child(odd) img { aspect-ratio: 16 / 10; }
+}
+/* Closed: the product photo has empty space around the short, so pull the list up under it */
+.its-stage { clip-path: inset(0 0 0 0); transition: margin .5s var(--its-ease), clip-path .5s var(--its-ease); }
+.its-stageWrap.is-closed .its-stage { margin-top: -16%; margin-bottom: -28%; clip-path: inset(21% 0 23% 0); }

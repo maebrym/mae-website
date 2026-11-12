@@ -124,6 +124,7 @@
       <div class="its-stageWrap">
         <div class="its-stage" id="its-stage"></div>
         <p class="its-hint" id="its-hint">Tap the short to break it down</p>
+        <ul class="introList its-list" id="its-list"></ul>
       </div>
       <aside class="its-panel"><div class="its-card" id="its-card"></div></aside>
     </div>
@@ -140,8 +141,11 @@
     $("inside-title").innerHTML = fit.title;
     $("its-sub").textContent = fit.sub;
     $("its-views-title").textContent = fit.viewsTitle;
-    $("its-grid").innerHTML = fit.views.map((v) =>
-      `<figure><img src="${IMG + v.src}" alt="${v.cap}" loading="lazy"><figcaption>${v.cap}</figcaption></figure>`).join("");
+    const views = fit.introImg ? [...fit.views.slice(0, 3), { src: fit.introImg.src, cap: "Worn", alt: fit.introImg.alt }, ...fit.views.slice(3)] : fit.views;
+    $("its-list").innerHTML = fit.layers.slice(1).map((l, k) => `<li data-i="${k + 1}"><span>${l.n}</span>${l.t}</li>`).join("");
+    $$("#its-list li").forEach((li) => { li.onclick = () => select(+li.dataset.i); });
+    $("its-grid").innerHTML = views.map((v) =>
+      `<figure><img src="${IMG + v.src}" alt="${v.alt || v.cap}" loading="lazy"><figcaption>${v.cap}</figcaption></figure>`).join("");
     $$("#its-fits button").forEach((b) => b.setAttribute("aria-pressed", String(FITS[b.dataset.fit] === fit)));
 
     stage.innerHTML = `<div class="its-assembled" id="its-assembled"><img src="${fit.assembled}" alt="MAE. ${fit.label} short, assembled"></div>` +
@@ -161,7 +165,7 @@
     stage.querySelectorAll(".mk").forEach((m) => m.addEventListener("click", (e) => { e.stopPropagation(); select(+m.dataset.l); }));
     $("its-assembled").onclick = () => setOpen(true);
     open = false; cur = 0;
-    stage.classList.remove("open", "focus");
+    stage.classList.remove("open", "focus"); stage.parentElement.classList.add("is-closed");
     btn.textContent = "Break it down"; btn.classList.add("red"); btn.classList.remove("ghost");
     hint.textContent = "Tap the short to break it down";
     renderIntro();
@@ -169,7 +173,7 @@
   function $$(sel) { return [...root.querySelectorAll(sel)]; }
 
   function setOpen(v) {
-    open = v; stage.classList.toggle("open", v);
+    open = v; stage.classList.toggle("open", v); stage.parentElement.classList.toggle("is-closed", !v);
     if (v) {
       const m = root.querySelector(".its-main"); const y = m.getBoundingClientRect().top + scrollY - 72;
       if (Math.abs(scrollY - y) > 20) scrollTo({ top: y, behavior: "smooth" });
@@ -190,6 +194,7 @@
       s.classList.toggle("on", ls.includes(cur));
     });
     stage.querySelectorAll(".mk").forEach((m) => m.classList.toggle("on", +m.dataset.l === cur));
+    $$("#its-list li").forEach((li) => li.classList.toggle("on", +li.dataset.i === cur));
   }
   const count = () => fit.layers.length - 1;
   // No Prev / numbered squares / Next row: people tap the short itself to step through the layers.
@@ -201,18 +206,14 @@
     if (n) n.onclick = () => step(1);
     card.querySelectorAll(".introList li").forEach((li) => { li.onclick = () => select(+li.dataset.i); });
   }
+  // No intro box: the short and the list under it are the intro. The card only shows once a layer is picked.
   function renderIntro() {
-    card.innerHTML = `<div class="cardTop"><span class="cond">Inside the short</span><span class="cond">${fit.label}</span></div>
-      <div class="cardBody intro">
-        <div class="cond big">${fit.introHead}</div>
-        <p class="what">${fit.introText}</p>
-        <img class="detail introImg${fit.introImg ? " introImg--tall" : ""}" src="${IMG + (fit.introImg ? fit.introImg.src : fit.views[3].src)}" alt="${fit.introImg ? fit.introImg.alt : `The ${fit.label} short, ${fit.views[3].cap.toLowerCase()}`}">
-        <ul class="introList">${fit.layers.slice(1).map((l, k) => `<li data-i="${k + 1}"><span>${l.n}</span>${l.t}</li>`).join("")}</ul>
-      </div>${nav()}`;
-    wire();
+    card.innerHTML = "";
+    root.querySelector(".its-main").classList.add("is-intro");
   }
   function renderLayer(i) {
     const l = fit.layers[i];
+    root.querySelector(".its-main").classList.remove("is-intro");
     card.innerHTML = `<div class="cardTop"><span class="cond">Layer ${l.n} of 0${count()}</span><span class="cond">${fit.cardFit}</span></div>
       <div class="cardBody">
         <div class="cardHead"><div class="bigNum">${l.n}</div><h3>${l.t}</h3></div>
