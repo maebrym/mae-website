@@ -14,6 +14,7 @@
   const FITS = {
     courtField: {
       label: "Court &amp; Field",
+      tab: "For the Game Short",
       kicker: "Court &amp; Field · 5\" Inseam",
       title: "The details.",
       sub: "Six layers. Every one has a reason.",
@@ -58,6 +59,7 @@
     },
     runLift: {
       label: "Run &amp; Lift",
+      tab: "MAE. Short",
       kicker: "Run &amp; Lift · 4\" Inseam",
       title: "The details.",
       sub: "Six layers. Every one has a reason.",
@@ -113,7 +115,7 @@
       </div>
       <div class="its-controls">
         <div class="its-fits" id="its-fits" role="group" aria-label="Pick a fit" ${keys.length > 1 ? "" : "hidden"}>
-          ${keys.map((k) => `<button type="button" data-fit="${k}">${FITS[k].label}</button>`).join("")}
+          ${keys.map((k) => `<button type="button" data-fit="${k}">${FITS[k].tab || FITS[k].label}</button>`).join("")}
         </div>
         <button class="its-btn red" id="its-toggle" type="button">Break it down</button>
       </div>
