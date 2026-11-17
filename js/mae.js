@@ -48,6 +48,10 @@
     // Google Apps Script web app link (see order-email/SETUP.md). Each pre-order is emailed to
     // wearmae.co@gmail.com and logged in the "MAE. Pre-orders" sheet. Leave null to skip.
     orderInboxUrl: "https://script.google.com/macros/s/AKfycbxRxBQHsYCV5VlhwwLq4JTzO1_ML6yQkN6TsjHN0epa0egK56tsBDmlZXmjrR5CM5vOXg/exec",
+    // Mailchimp: Audience > Signup forms > Embedded forms. Copy the form's action="..." link
+    // (it looks like https://XXXX.usNN.list-manage.com/subscribe/post?u=...&id=...) and paste it here.
+    // Every Join The 300 sign-up then lands in Mailchimp. Leave null to save sign-ups on this device only.
+    mailchimpUrl: null,
   };
 
   const PRODUCTS = {
@@ -490,9 +494,26 @@
   }
 
   /* ================= Email forms (Join The 300, Notify me) ================= */
+  // Mailchimp's embedded-form endpoint answers JSONP, which works from a static site with no server.
+  function mailchimpSubscribe(fields) {
+    return new Promise((resolve, reject) => {
+      const cb = "maeMc" + Date.now();
+      const s = document.createElement("script");
+      const done = () => { delete window[cb]; s.remove(); clearTimeout(timer); };
+      const timer = setTimeout(() => { done(); reject(new Error("timeout")); }, 10000);
+      window[cb] = (data) => { done(); resolve(data || {}); };
+      const q = Object.entries(fields).map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`).join("&");
+      s.src = `${CONFIG.mailchimpUrl.replace("/post?", "/post-json?")}&${q}&c=${cb}`;
+      s.onerror = () => { done(); reject(new Error("network")); };
+      document.head.appendChild(s);
+    });
+  }
+
   function emailForms() {
     $$("[data-email-form]").forEach((form) => {
       const input = $("input[type=email]", form), msg = $("[data-form-msg]", form.parentElement);
+      const nameInput = $("input[name=FNAME]", form), btn = $("button[type=submit]", form);
+      const success = () => { form.hidden = true; msg.textContent = form.dataset.success; msg.focus(); };
       form.addEventListener("submit", (e) => {
         e.preventDefault();
         const v = input.value.trim();
@@ -503,12 +524,22 @@
           return;
         }
         input.removeAttribute("aria-invalid");
+        const fname = nameInput ? nameInput.value.trim() : "";
         const list = store.get("mae.list", []);
-        list.push({ email: v, list: form.dataset.emailForm, at: new Date().toISOString() });
+        list.push({ email: v, name: fname, list: form.dataset.emailForm, at: new Date().toISOString() });
         store.set("mae.list", list);
-        form.hidden = true;
-        msg.textContent = form.dataset.success;
-        msg.focus();
+        if (!CONFIG.mailchimpUrl) return success();
+        btn.disabled = true;
+        msg.textContent = "Saving your spot...";
+        mailchimpSubscribe({ EMAIL: v, FNAME: fname }).then((r) => {
+          btn.disabled = false;
+          // Mailchimp says "already subscribed" as an error; for her, that still means she's in.
+          if (r.result === "success" || /already subscribed/i.test(r.msg || "")) return success();
+          msg.textContent = "That didn't go through. Check your email and try again.";
+        }).catch(() => {
+          btn.disabled = false;
+          msg.textContent = "No connection right now. Try again in a moment.";
+        });
       });
     });
   }

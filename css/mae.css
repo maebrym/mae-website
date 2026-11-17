@@ -554,6 +554,16 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .form-success { font-family: var(--f-band); font-size: 1.3rem; font-style: italic; margin: 12px 0 0; }
 @media (max-width: 760px) { .signup__row { grid-template-columns: 1fr; } .inline-form { grid-template-columns: 1fr; } }
 
+/* Join The 300 page (join.html): the QR code at the booth opens this, so it is built for a phone first */
+.join { min-height: 70vh; display: flex; align-items: center; }
+.join .wrap { max-width: 620px; padding-block: clamp(40px, 8vw, 88px); }
+.join__lead { font-family: var(--f-band); font-size: 1.35rem; line-height: 1.4; margin: 14px 0 28px; }
+.join-form { display: grid; gap: 16px; }
+.join-form .btn { width: 100%; min-height: 56px; }
+.join-form .btn[disabled] { opacity: .6; cursor: wait; }
+.join__perks { list-style: none; margin: 28px 0 0; padding: 0; border-top: 2px solid var(--ink); }
+.join__perks li { padding: 12px 0; border-bottom: 2px solid var(--ink); font-family: var(--f-cover); font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+
 /* ---------- DROP 01 ---------- */
 .lookbook { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: clamp(12px, 1.6vw, 20px); }
 .lookbook figure { margin: 0; position: relative; border: 2px solid var(--ink); overflow: hidden; background: var(--bone); }
