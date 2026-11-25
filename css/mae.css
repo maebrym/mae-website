@@ -266,10 +266,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .cover__foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin-top: 20px; }
 .scroll-cue { font-family: var(--f-cover); letter-spacing: .24em; text-transform: uppercase; font-size: .85rem; display: flex; align-items: center; gap: 10px; }
 .scroll-cue i { width: 2px; height: 36px; background: currentColor; display: block; }
-.video-toggle {
-  min-width: 48px; min-height: 48px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,.7);
-  background: rgba(0,0,0,.25); color: #fff; display: inline-flex; align-items: center; justify-content: center;
-}
 
 /* ---------- Home: photo wall ---------- */
 .wall { background: var(--ink); border-top: 2px solid var(--ink); }
@@ -924,3 +920,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .buy__notify .form-success { margin: 0; font-weight: 600; }
 .buy__notify form + .form-success:not(:empty) { margin-top: 12px; }
 @media (max-width: 760px) { .waitband__row { grid-template-columns: 1fr; } }
+
+/* Cover reel: the still photo sits behind, the video shows only while playing, and no play or pause button ever appears */
+.cover { background: var(--ink) url("../assets/video/court-hero-poster.jpg") center / cover no-repeat; }
+.cover__media, .cover__frames { pointer-events: none; }
+html:not(.no-js) .cover__media { opacity: 0; }
+html:not(.no-js) .cover__media.is-playing { opacity: 1; }
+.cover__frames { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+.cover__media::-webkit-media-controls, .cover__media::-webkit-media-controls-start-playback-button, .cover__media::-webkit-media-controls-overlay-play-button { display: none !important; -webkit-appearance: none; }

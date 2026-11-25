@@ -367,19 +367,51 @@
   }
 
   /* ================= Home: cover video ================= */
+  // The reel only ever loops. The video stays invisible until it is really playing, so a phone that blocks
+  // autoplay (Low Power Mode) never shows its play button; those phones get the same reel drawn frame by frame.
   function coverVideo() {
-    const v = $("[data-cover-video]"), btn = $("[data-video-toggle]");
+    const v = $("[data-cover-video]");
     if (!v) return;
-    if (reduceMotion) { v.removeAttribute("autoplay"); v.pause(); }
-    if (!btn) return;
-    const paintBtn = () => {
-      btn.innerHTML = v.paused
-        ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5l12 7-12 7z"/></svg><span class="sr-only">Play background video</span>'
-        : '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg><span class="sr-only">Pause background video</span>';
+    v.muted = true;
+    if (reduceMotion) { v.removeAttribute("autoplay"); v.pause(); return; }
+    let frames = null;
+    const go = () => {
+      if (document.hidden || !v.paused) return;
+      const p = v.play();
+      if (p) p.catch((e) => { if (e.name === "NotAllowedError" && !frames) frames = playFrames(v); });
     };
-    v.addEventListener("play", paintBtn); v.addEventListener("pause", paintBtn);
-    btn.addEventListener("click", () => (v.paused ? v.play() : v.pause()));
-    paintBtn();
+    v.addEventListener("playing", () => { v.classList.add("is-playing"); if (frames) { frames.stop(); frames = null; } });
+    v.addEventListener("pause", () => { v.classList.remove("is-playing"); setTimeout(go, 200); });
+    document.addEventListener("visibilitychange", go);
+    window.addEventListener("pageshow", go);
+    ["touchend", "click"].forEach((t) => document.addEventListener(t, go, { passive: true }));
+    if (v.paused) go(); else if (v.readyState > 2) v.classList.add("is-playing");
+  }
+  function playFrames(v) {
+    const c = document.createElement("canvas");
+    c.className = "cover__frames"; c.setAttribute("aria-hidden", "true");
+    let off = false;
+    (async () => {
+      try {
+        const buf = new Uint8Array(await (await fetch("assets/video/court-hero-frames.bin?v=1")).arrayBuffer());
+        const jpgs = [];
+        for (let i = 0, at = 0; i < buf.length - 1; i++) {
+          if (buf[i] === 255 && buf[i + 1] === 216) at = i;
+          else if (buf[i] === 255 && buf[i + 1] === 217) jpgs.push(new Blob([buf.subarray(at, i + 2)], { type: "image/jpeg" }));
+        }
+        const ctx = c.getContext("2d"), start = performance.now();
+        while (!off) {
+          const n = Math.floor((performance.now() - start) / 1000 * 12);
+          const bmp = await createImageBitmap(jpgs[n % jpgs.length]);
+          if (off) break;
+          if (c.width !== bmp.width) { c.width = bmp.width; c.height = bmp.height; }
+          ctx.drawImage(bmp, 0, 0); bmp.close();
+          if (!c.isConnected) v.after(c);
+          await new Promise((r) => setTimeout(r, Math.max(10, (n + 1) / 12 * 1000 - (performance.now() - start))));
+        }
+      } catch (e) { /* the still photo stays up */ }
+    })();
+    return { stop() { off = true; c.remove(); } };
   }
 
   /* ================= Home: every sport map ================= */
