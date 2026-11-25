@@ -711,4 +711,12 @@
   checkout();
   reveals();
   if (location.hash === "#bag") openBag();
+  // wearmae.co/#waitlist goes straight to the sign-up, again once fonts and photos have settled, unless she has started scrolling
+  if (location.hash === "#waitlist" && $("#waitlist")) {
+    let moved = false;
+    ["wheel", "touchstart", "keydown"].forEach((t) => window.addEventListener(t, () => { moved = true; }, { passive: true, once: true }));
+    const jump = () => { if (!moved) $("#waitlist").scrollIntoView({ behavior: "instant", block: "start" }); };
+    jump();
+    window.addEventListener("load", () => { jump(); setTimeout(jump, 400); });
+  }
 })();
