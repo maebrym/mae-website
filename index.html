@@ -7,7 +7,7 @@
 <meta name="description" content="MAE. is modest vintage athletic wear for girls who hoop, run, and lift. Built in Austin, Texas. Drop 01: two lines, two shorts, two tops.">
 <meta name="theme-color" content="#d9301f">
 <link rel="stylesheet" href="css/fonts.css?v=3">
-<link rel="stylesheet" href="css/mae.css?v=74">
+<link rel="stylesheet" href="css/mae.css?v=75">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="MAE.">
 <meta property="og:title" content="MAE. Where modesty meets the moment">
@@ -43,8 +43,26 @@
     </div>
   </section>
 
-  <!-- Waitlist band: saves to the Waitlist tab of the Google Sheet -->
-  <section class="waitband" id="waitlist" aria-labelledby="wait-title">
+  <!-- Sign-ups: both save to the Waitlist tab of the Google Sheet. wearmae.co/#waitlist lands here. -->
+  <div id="waitlist">
+  <!-- Drop 0.5 mini band: the first shirt -->
+  <section class="halfband" aria-labelledby="half-title">
+    <div class="wrap halfband__row">
+      <p class="halfband__text"><span class="halfband__tag">Drop 0.5</span> <span id="half-title">The first shirt.</span> <strong>Coming December 10.</strong></p>
+      <div class="halfband__form">
+        <form class="inline-form" data-email-form="Homepage" data-item="Drop 0.5 (first shirt)" data-success="You're in. We'll email you December 10." novalidate>
+          <label class="field-label sr-only" for="half-email">Your email for Drop 0.5</label>
+          <input class="input" id="half-email" type="email" name="email" autocomplete="email" placeholder="Your email" required aria-describedby="half-msg">
+          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
+          <button class="btn btn--ink" type="submit">Notify me</button>
+        </form>
+        <p class="form-success" id="half-msg" data-form-msg tabindex="-1" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Drop 01 band -->
+  <section class="waitband" aria-labelledby="wait-title">
     <div class="wrap waitband__row">
       <div>
         <h2 class="headline" id="wait-title">Drop 01 is coming.</h2>
@@ -61,6 +79,7 @@
       </div>
     </div>
   </section>
+  </div>
 
   <!-- 2. Two fit tiles -->
   <section class="section" aria-labelledby="fits-title">
