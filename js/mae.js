@@ -54,8 +54,8 @@
     "athlete-short": {
       fit: "athlete", piece: "short", tab: "For the Game Short", name: "For the Game Short", price: 48,
       specs: '5" · 9" rise · hidden liner', color: "Navy / Green stripe", hex: "#1f2f6b",
-      img: "assets/img/court-field-short.jpg?v=9", alt: "For the Game Short, front: a shiny navy short with a straight hem, cream mesh side panels, emerald verse tape, and a MAE. patch on the leg",
-      back: "assets/img/court-field-short-back.jpg?v=9", backAlt: "For the Game Short, back: navy with cream mesh side panels and emerald tape reading FAINT, YET PURSUING 8:4",
+      img: "assets/img/court-field-short.jpg?v=9", alt: "For the Game Short, front: a shiny navy short with a straight hem, cream mesh side panels, emerald side tape, and a MAE. patch on the leg",
+      back: "assets/img/court-field-short-back.jpg?v=9", backAlt: "For the Game Short, back: navy with cream mesh side panels and emerald side tape",
     },
     "athlete-tee": {
       fit: "athlete", piece: "top", tab: "For the 300 Shirt", name: "For the 300 Shirt", price: 38,
