@@ -38,7 +38,7 @@
           why: "Girls roll their shorts because the rise, the distance from the crotch to the waistband, is cut too long. This one has a 9\" rise, so the waistband sits low on the hips, just below the belly button. It is already where she wants it." },
         { n: "02", t: "The Outer Shell", img: "court-field-side.jpg?v=9", what: "<b>Shiny navy dazzle</b>, 5\" inseam, relaxed cut.",
           why: "The 90s court shine, cut for her. Loose and flowy, so it moves without clinging. Relaxed, not tight, not showy." },
-        { n: "03", t: "The Side Panel", img: "court-field-tape.jpg?v=6", what: "<b>Cream mesh side panels</b> with an emerald stripe.",
+        { n: "03", t: "The Side Panel", img: "court-field-tape.jpg?v=6", what: "<b>Cream mesh side panels</b> with emerald side tape.",
           why: "The mesh lets heat out where she needs it, and the panels give her room to move on a closeout." },
         { n: "04", t: "The Undershort", img: "court-field-liner.jpg?v=6", what: "<b>Featherlight, opaque, squat-proof.</b> Silicone gripper at the leg.",
           why: "Built in and so thin she forgets it's there. The gripper keeps it from riding up, and it's cut shorter than the shell so it never peeks out. Nothing shows. Nothing chafes." },
@@ -48,7 +48,7 @@
           why: "The mark on every piece. Modest with a why. Brand new and bright now, with a vintage wash coming in production." },
       ],
       viewsTitle: "For the Game Short",
-      viewsNote: "Drop 01 · Navy dazzle · Cream mesh · Emerald stripe",
+      viewsNote: "Drop 01 · Navy dazzle · Cream mesh · Emerald side tape",
       views: [
         { src: "court-field-front.jpg?v=9", cap: "Front" }, { src: "court-field-back.jpg?v=9", cap: "Back" },
         { src: "court-field-side.jpg?v=9", cap: "Side" }, { src: "court-field-court.jpg?v=3", cap: "On the court" },
