@@ -7,7 +7,7 @@
 <meta name="description" content="MAE. is modest vintage athletic wear for girls who hoop, run, and lift. Built in Austin, Texas. Drop 01: two lines, two shorts, two tops.">
 <meta name="theme-color" content="#d9301f">
 <link rel="stylesheet" href="css/fonts.css?v=3">
-<link rel="stylesheet" href="css/mae.css?v=71">
+<link rel="stylesheet" href="css/mae.css?v=72">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 </head>
 <body data-page="home">
@@ -28,6 +28,25 @@
       <div class="cover__center">
         <h1 class="masthead logo" id="cover-title">MAE.</h1>
         <p class="cover__motto">Where modesty meets the moment</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Waitlist band: saves to the Waitlist tab of the Google Sheet -->
+  <section class="waitband" id="waitlist" aria-labelledby="wait-title">
+    <div class="wrap waitband__row">
+      <div>
+        <h2 class="headline" id="wait-title">Drop 01 is coming.</h2>
+        <p class="waitband__sub">Sign up and we'll tell you when.</p>
+      </div>
+      <div>
+        <form class="inline-form" data-email-form="Homepage" data-success="You're in. You'll hear before anyone else." novalidate>
+          <label class="field-label" for="wait-email">Your email</label>
+          <input class="input" id="wait-email" type="email" name="email" autocomplete="email" placeholder="name@example.com" required aria-describedby="wait-msg">
+          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
+          <button class="btn btn--ink" type="submit">Get first access</button>
+        </form>
+        <p class="form-success" id="wait-msg" data-form-msg tabindex="-1" aria-live="polite"></p>
       </div>
     </div>
   </section>
@@ -149,6 +168,6 @@
 
 <!-- 5. Footer with motto -->
 <footer data-site-footer></footer>
-<script src="js/mae.js?v=47"></script>
+<script src="js/mae.js?v=48"></script>
 </body>
 </html>

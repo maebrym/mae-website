@@ -467,34 +467,29 @@
       const p = PRODUCTS[id];
       $$(".piece-tab", tabs).forEach((t) => t.setAttribute("aria-selected", String(t.dataset.piece === id)));
       $("#piece-name").textContent = p.name;
-      $("#add-btn").innerHTML = `Add to bag · ${money(p.price)}`;
+      $("#notify-form").dataset.item = p.name;
       const url = new URL(location.href); url.searchParams.set("item", id); history.replaceState(null, "", url);
     };
     tabs.addEventListener("click", (e) => { const t = e.target.closest("[data-piece]"); if (t) select(t.dataset.piece); });
     select(current);
-
-    const err = $("#size-error");
-    const getSize = () => { const c = $('input[name="size"]:checked'); return c && c.value; };
-    $("#sizes").addEventListener("change", () => { err.textContent = ""; });
-    const need = () => { err.textContent = "Pick a size first, then add it to your bag."; $('#sizes input').focus(); };
-    $("#add-btn").addEventListener("click", () => {
-      const size = getSize(); if (!size) return need();
-      Bag.add(current, size); toast(`${PRODUCTS[current].name}, size ${size}, added`);
-    });
-    $("#add-fit-btn").addEventListener("click", () => {
-      const size = getSize(); if (!size) return need();
-      fit.pieces.forEach((id) => Bag.add(id, size)); toast(`The full fit, size ${size}, added`); openBag();
-    });
-    const fitTotal = fit.pieces.reduce((n, id) => n + PRODUCTS[id].price, 0);
-    $("#add-fit-btn").innerHTML = `Add the full fit · ${money(fitTotal)}`;
   }
 
-  /* ================= Email forms (Join The 300, Notify me) ================= */
+  /* ================= Waitlist forms (home band, Notify me) ================= */
+  // Says "You're in" only after the Google Sheet has saved the email. Anything else asks them to try again.
+  async function saveToWaitlist(entry) {
+    const stop = new AbortController(), timer = setTimeout(() => stop.abort(), 20000);
+    try {
+      const r = await fetch(CONFIG.orderInboxUrl, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ type: "waitlist", ...entry }), signal: stop.signal });
+      const out = await r.json();
+      return out.ok === true && out.saved === true;
+    } catch (e) { return false; } finally { clearTimeout(timer); }
+  }
   function emailForms() {
     $$("[data-email-form]").forEach((form) => {
-      const input = $("input[type=email]", form), msg = $("[data-form-msg]", form.parentElement);
-      form.addEventListener("submit", (e) => {
+      const input = $("input[type=email]", form), msg = $("[data-form-msg]", form.parentElement), btn = $("button[type=submit]", form), label = btn.textContent;
+      form.addEventListener("submit", async (e) => {
         e.preventDefault();
+        if (btn.disabled) return;
         const v = input.value.trim();
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
           input.setAttribute("aria-invalid", "true");
@@ -503,9 +498,11 @@
           return;
         }
         input.removeAttribute("aria-invalid");
-        const list = store.get("mae.list", []);
-        list.push({ email: v, list: form.dataset.emailForm, at: new Date().toISOString() });
-        store.set("mae.list", list);
+        btn.disabled = true; btn.textContent = "Saving..."; msg.textContent = "";
+        const item = form.dataset.item, size = $('input[name="size"]:checked');
+        const ok = await saveToWaitlist({ email: v, source: form.dataset.emailForm, item: item || "Drop 01", size: item && size ? size.value : "", website: form.elements.website.value });
+        btn.disabled = false; btn.textContent = label;
+        if (!ok) { msg.textContent = "That didn't save. Please try again."; return; }
         form.hidden = true;
         msg.textContent = form.dataset.success;
         msg.focus();
